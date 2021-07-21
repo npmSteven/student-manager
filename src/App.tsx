@@ -1,9 +1,15 @@
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+
+import { Routes } from './routing/Routes';
 
 export const App = () => {
   return (
-    <div>
-      <h1>Student Manager</h1>
-    </div>
+    <Router basename={process.env.PUBLIC_URL}>
+      {/* <Navbar /> */}
+      <Switch>
+        <Route component={Routes} />
+      </Switch>
+    </Router>
   );
 }
 
