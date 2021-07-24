@@ -21,11 +21,16 @@ export const SignUp = (): ReactElement => {
 
   useEffect(() => {
     (async () => {
-      const response = await getCurrencies();
-      if (response.success) {
-        setCurrencies(response.payload);
+      try {
+        const response = await getCurrencies();
+        if (response.success) {
+          setCurrencies(response.payload);
+        }
+        setIsLoading(false);
+      } catch (error) {
+        setIsLoading(false);
+        console.error('ERROR - SignUp.tsx - useEffect():', error);
       }
-      setIsLoading(false);
     })();
   }, []);
 
@@ -44,7 +49,7 @@ export const SignUp = (): ReactElement => {
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
-      console.error('ERROR - onSubmit():', error);
+      console.error('ERROR - SignUp.tsx - onSubmit():', error);
     }
   };
 
