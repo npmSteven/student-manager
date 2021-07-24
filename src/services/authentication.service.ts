@@ -1,7 +1,7 @@
-import jwt_decode from "jwt-decode";
+import jwt_decode from 'jwt-decode';
 import { toast } from 'react-toastify';
 import { postApi } from './api.service';
-import { getCurrentTimestamp } from "./time.service";
+import { getCurrentTimestamp } from './time.service';
 import { setUser } from './user.service';
 
 const JWT_KEY = 'jwt';
@@ -14,7 +14,7 @@ export const isAuthenticated = () => {
   const jwt = getJwt();
   if (!jwt) return false;
   const decoded: any = jwt_decode(jwt);
-  const currentTimestamp = getCurrentTimestamp();  
+  const currentTimestamp = getCurrentTimestamp();
   if (currentTimestamp > decoded.exp) {
     return false;
   }

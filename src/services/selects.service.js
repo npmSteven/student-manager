@@ -1,4 +1,4 @@
-import { getApi } from "./api.service";
+import { getApi } from './api.service';
 
 export const getCurrencies = async () => {
   try {

@@ -12,12 +12,12 @@ const getAuthHeaders = () => {
 };
 
 const checkErrors = (data: any) => {
-    if (!data.success) {
-        toast.dismiss();
-        data.payload.forEach((error: string) => {
-            toast.error(error);
-        });
-    }
+  if (!data.success) {
+    toast.dismiss();
+    data.payload.forEach((error: string) => {
+      toast.error(error);
+    });
+  }
 };
 
 export const getApi = async (route: string) => {
