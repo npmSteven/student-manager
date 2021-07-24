@@ -3,16 +3,13 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useFormInput } from '../../hooks/useFormInput';
+import { FormControl, InputLabel, Select } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -38,6 +35,8 @@ export const SignUpView = ({
   hourlyRateElement,
   emailElement,
   passwordElement,
+  currencyElement,
+  currencies,
 }: any): ReactElement => {
   const classes = useStyles();
 
@@ -51,7 +50,7 @@ export const SignUpView = ({
         <Typography component="h1" variant="h5">
           Sign up
         </Typography>
-        <div>
+        <div style={{ marginTop: 15 }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -90,7 +89,7 @@ export const SignUpView = ({
                 {...lastNameElement.props}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
                 required
@@ -102,6 +101,18 @@ export const SignUpView = ({
                 autoComplete="hourlyRate"
                 {...hourlyRateElement.props}
               />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl required fullWidth>
+                <InputLabel>Currency</InputLabel>
+                <Select native {...currencyElement.props}>
+                  {currencies.map((currency: string) => (
+                    <option key={currency} value={currency}>
+                      {currency}
+                    </option>
+                  ))}
+                </Select>
+              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField
