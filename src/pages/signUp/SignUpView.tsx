@@ -105,7 +105,7 @@ export const SignUpView = ({
             <Grid item xs={12} sm={6}>
               <FormControl required fullWidth>
                 <InputLabel>Currency</InputLabel>
-                <Select native {...currencyElement.props}>
+                <Select native {...currencyElement.props} value="GBP">
                   {currencies.map((currency: string) => (
                     <option key={currency} value={currency}>
                       {currency}
