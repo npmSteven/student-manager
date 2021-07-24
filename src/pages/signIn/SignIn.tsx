@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ReactElement } from 'react';
 import { Loader } from '../../components/loader/Loader';
 import { useFormInput } from '../../hooks/useFormInput';
-import { isAuthenticated, signIn } from '../../services/authentication.service';
+import { signIn } from '../../services/authentication.service';
 import { SignInView } from './SignInView';
 
 export const SignIn = (): ReactElement => {
