@@ -15,7 +15,7 @@ export const SignUp = (): ReactElement => {
   const [hourlyRate, hourlyRateElement] = useFormInput('');
   const [email, emailElement] = useFormInput('');
   const [password, passwordElement] = useFormInput('');
-  const [currency, currencyElement] = useFormInput('');
+  const [currency, currencyElement] = useFormInput('GBP');
   const [isLoading, setIsLoading] = useState(true);
   const [currencies, setCurrencies] = useState([]);
 
