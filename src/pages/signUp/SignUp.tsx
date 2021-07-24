@@ -4,7 +4,7 @@ import { ReactElement } from 'react';
 import { Loader } from '../../components/loader/Loader';
 import { useFormInput } from '../../hooks/useFormInput';
 import { signUp } from '../../services/authentication.service';
-import { getCurrencies } from '../../services/selects';
+import { getCurrencies } from '../../services/selects.service';
 
 import { SignUpView } from './SignUpView';
 
