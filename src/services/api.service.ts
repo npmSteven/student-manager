@@ -80,3 +80,19 @@ export const deleteApi = async (route: string) => {
     throw error;
   }
 };
+
+/**
+ * Calls multiple http endpoints in parallel
+ * Returns object of resolved http requests with props
+ */
+ export const parallelPromise = async (parallelHttpRequests): Promise<any> => {
+  const resolvedHttpRequests = await Promise.all(Object.values(parallelHttpRequests));
+  const httpRequestKeys = Object.keys(parallelHttpRequests);
+  return resolvedHttpRequests.reduce(
+    (acc: any, hR, index) => {
+      acc[httpRequestKeys[index]] = hR;
+      return acc;
+    },
+    {},
+  );
+};

@@ -1,14 +1,31 @@
 import { ReactElement } from 'react';
+import { Table } from '../../components/table/Table';
 
 export const TutorsView = ({
   tutors
 }): ReactElement => {
+  const columns = [
+    {
+      Header: 'First Name',
+      accessor: 'firstName',
+    },
+    {
+      Header: 'Middle Name',
+      accessor: 'middleName',
+    },
+    {
+      Header: 'Last Name',
+      accessor: 'lastName',
+    },
+    {
+      Header: 'Email',
+      accessor: 'email',
+    },
+  ];
   return (
     <div>
       <h1>Tutors</h1>
-      {tutors.map(({ _id, firstName, lastName }) => (
-        <p key={_id}>{firstName} - {lastName}</p>
-      ))}
+      <Table data={tutors} columns={columns} />
     </div>
   );
 };

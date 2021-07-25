@@ -2,20 +2,39 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { ReactElement } from 'react';
 import { Loader } from '../../components/loader/Loader';
+import { parallelPromise } from '../../services/api.service';
+import { getClasses } from '../../services/classes.service';
 import { getStudents } from '../../services/students.service';
+import { getTutors } from '../../services/tutors.service';
 import { StudentsView } from './StudentsView';
 
 export const Students = (): ReactElement => {
 
   const [isLoading, setIsLoading] = useState(true);
   const [studentsState, setStudentsState] = useState([]);
+  const [tutorsState, setTutorsState] = useState([]);
+  const [classesState, setClassesState] = useState([]);
 
   useEffect(() => {
     (async () => {
       try {
-        const students = await getStudents();
+        const {
+          students,
+          tutors,
+          classes,
+        } = await parallelPromise({
+          students: getStudents(),
+          tutors: getTutors(),
+          classes: getClasses(),
+        });
         if (students.success) {
           setStudentsState(students.payload);
+        }
+        if (tutors.success) {
+          setTutorsState(tutors.payload);
+        }
+        if (classes.success) {
+          setClassesState(classes.payload);
         }
         setIsLoading(false);
       } catch (error) {
@@ -27,7 +46,7 @@ export const Students = (): ReactElement => {
   return (
     <Loader
       isLoading={isLoading}
-      component={<StudentsView students={studentsState} />}
+      component={<StudentsView students={studentsState} tutors={tutorsState} classes={classesState} />}
     />
   );
 };
