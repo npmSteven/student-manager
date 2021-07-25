@@ -2,6 +2,7 @@ import { ReactElement } from 'react';
 import { Table } from '../../components/table/Table';
 import { Boolean } from '../../Pipes/Boolean';
 import { ClassCode } from '../../Pipes/ClassCode';
+import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 import { TutorName } from '../../Pipes/TutorName';
 
 export const StudentsView = ({ students, tutors, classes }: any): ReactElement => {
@@ -9,14 +10,23 @@ export const StudentsView = ({ students, tutors, classes }: any): ReactElement =
     {
       Header: 'First Name',
       accessor: 'firstName',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Last Name',
       accessor: 'lastName',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Email',
       accessor: 'email',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Tutor',
@@ -31,6 +41,9 @@ export const StudentsView = ({ students, tutors, classes }: any): ReactElement =
     {
       Header: 'Timezone',
       accessor: 'timezone',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Intro Email',

@@ -1,5 +1,6 @@
 import { ReactElement } from 'react';
 import { Table } from '../../components/table/Table';
+import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 
 export const TutorsView = ({
   tutors
@@ -8,18 +9,30 @@ export const TutorsView = ({
     {
       Header: 'First Name',
       accessor: 'firstName',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Middle Name',
       accessor: 'middleName',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Last Name',
       accessor: 'lastName',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Email',
       accessor: 'email',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
   ];
   return (

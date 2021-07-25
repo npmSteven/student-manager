@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { CopyToClipboard } from './CopyToClipboard';
 
 export const ClassCode = ({ classId, classes }: any) => {
   const [classCode, setClassCode] = useState('');
@@ -11,5 +12,5 @@ export const ClassCode = ({ classId, classes }: any) => {
     }
   }, []);
 
-  return <p>{classCode}</p>;
+  return <CopyToClipboard text={classCode} />;
 };

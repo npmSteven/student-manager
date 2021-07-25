@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { CopyToClipboard } from './CopyToClipboard';
 
 export const TutorName = ({ tutorId, tutors }: any) => {
   const [tutorName, setTutorName] = useState('');
@@ -11,5 +12,5 @@ export const TutorName = ({ tutorId, tutors }: any) => {
     }
   }, []);
 
-  return <p>{tutorName}</p>;
+  return  <CopyToClipboard text={tutorName} />;
 };

@@ -1,6 +1,7 @@
 import { ReactElement } from 'react';
 import { Table } from '../../components/table/Table';
 import { Boolean } from '../../Pipes/Boolean';
+import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 import { StudentName } from '../../Pipes/StudentName';
 import { TutorName } from '../../Pipes/TutorName';
 import { timestampToDate } from '../../services/time.service';
@@ -10,12 +11,12 @@ export const MeetingsView = ({ meetings, tutors, students }): ReactElement => {
     {
       Header: 'Period Start',
       accessor: 'periodStart',
-      Cell: ({ value }) => timestampToDate(value),
+      Cell: ({ value }) => <CopyToClipboard text={timestampToDate(value)} />,
     },
     {
       Header: 'Period End',
       accessor: 'periodEnd',
-      Cell: ({ value }) => timestampToDate(value),
+      Cell: ({ value }) => <CopyToClipboard text={timestampToDate(value)} />,
     },
     {
       Header: 'Student',
@@ -34,10 +35,16 @@ export const MeetingsView = ({ meetings, tutors, students }): ReactElement => {
     {
       Header: 'Hourly Rate',
       accessor: 'hourlyRate',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Currency',
       accessor: 'currency',
+      Cell: ({ value }) => (
+        <CopyToClipboard text={value} />
+      )
     },
     {
       Header: 'Show',
