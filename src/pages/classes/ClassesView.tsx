@@ -1,9 +1,14 @@
 import { ReactElement } from 'react';
 
-export const ClassesView = (): ReactElement => {
+export const ClassesView = ({
+  classes
+}): ReactElement => {
   return (
     <div>
-      <p>Classes</p>
+      <h1>Classes:</h1>
+      {classes.map(({ _id, classCode, classType }) => (
+        <p key={_id}>{classCode} - {classType}</p>
+      ))}
     </div>
   );
 };

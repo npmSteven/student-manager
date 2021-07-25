@@ -1,9 +1,14 @@
 import { ReactElement } from 'react';
 
-export const TutorsView = (): ReactElement => {
+export const TutorsView = ({
+  tutors
+}): ReactElement => {
   return (
     <div>
-      <p>Tutors</p>
+      <h1>Tutors</h1>
+      {tutors.map(({ _id, firstName, lastName }) => (
+        <p key={_id}>{firstName} - {lastName}</p>
+      ))}
     </div>
   );
 };
