@@ -13,7 +13,7 @@ export const SignIn = (): ReactElement => {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [isAuthed, setIsAuthed] = useAuthentication();
+  const [_, setIsAuthed] = useAuthentication();
   const [email, emailElement] = useFormInput('');
   const [password, passwordElement] = useFormInput('');
 
@@ -25,8 +25,8 @@ export const SignIn = (): ReactElement => {
         password,
       });
       if (response.success) {
-        history.push('/classes');
         setIsAuthed(true);
+        history.push('/classes');
       }
       setIsLoading(false);
     } catch (error) {

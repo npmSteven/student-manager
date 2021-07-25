@@ -16,7 +16,7 @@ export const SignUp = (): ReactElement => {
   const [isLoading, setIsLoading] = useState(true);
   const [currencies, setCurrencies] = useState([]);
   
-  const [isAuthed, setIsAuthed] = useAuthentication();
+  const [_, setIsAuthed] = useAuthentication();
   const [firstName, firstNameElement] = useFormInput('');
   const [middleName, middleNameElement] = useFormInput('');
   const [lastName, lastNameElement] = useFormInput('');
@@ -53,8 +53,8 @@ export const SignUp = (): ReactElement => {
         currency,
       });
       if (response.success) {
-        history.push('/classes');
         setIsAuthed(true);
+        history.push('/classes');
       }
       setIsLoading(false);
     } catch (error) {
