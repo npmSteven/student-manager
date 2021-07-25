@@ -1,8 +1,8 @@
-import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuth } from '../../hooks/useAuth';
 import { NavbarView } from './NavbarView';
 
 export const Navbar = () => {
-  const [isAuthed] = useAuthentication();
+  const [auth] = useAuth();
 
-  return isAuthed ? <NavbarView /> : null;
+  return auth ? <NavbarView /> : null;
 };

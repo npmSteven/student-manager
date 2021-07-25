@@ -11,6 +11,7 @@ import { Meetings } from '../pages/meetings/Meetings';
 import { Settings } from '../pages/settings/Settings';
 import { Students } from '../pages/students/Students';
 import { Tutors } from '../pages/tutors/Tutors';
+import { Logout } from '../pages/logout/Logout';
 
 export const Routes = () => {
   return (
@@ -22,6 +23,7 @@ export const Routes = () => {
       <AuthenticatedRoute exact path="/settings" component={Settings} />
       <AuthenticatedRoute exact path="/students" component={Students} />
       <AuthenticatedRoute exact path="/tutors" component={Tutors} />
+      <Route exact path="/logout" component={Logout} />
       <Redirect to="/classes" />
     </Switch>
   );

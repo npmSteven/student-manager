@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Loader } from '../../components/loader/Loader';
-import { useAuthentication } from '../../hooks/useAuthentication';
+import { useAuth } from '../../hooks/useAuth';
 import { useFormInput } from '../../hooks/useFormInput';
 import { signUp } from '../../services/authentication.service';
 import { getCurrencies } from '../../services/selects.service';
@@ -16,7 +16,8 @@ export const SignUp = (): ReactElement => {
   const [isLoading, setIsLoading] = useState(true);
   const [currencies, setCurrencies] = useState([]);
   
-  const [_, setIsAuthed] = useAuthentication();
+  const [auth, handleAuth] = useAuth();
+
   const [firstName, firstNameElement] = useFormInput('');
   const [middleName, middleNameElement] = useFormInput('');
   const [lastName, lastNameElement] = useFormInput('');
@@ -53,8 +54,9 @@ export const SignUp = (): ReactElement => {
         currency,
       });
       if (response.success) {
-        setIsAuthed(true);
+        handleAuth();
         history.push('/classes');
+        return;
       }
       setIsLoading(false);
     } catch (error) {
