@@ -8,8 +8,9 @@ import { SignInView } from './SignInView';
 
 export const SignIn = (): ReactElement => {
   
-  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [email, emailElement] = useFormInput('');
   const [password, passwordElement] = useFormInput('');
@@ -17,11 +18,13 @@ export const SignIn = (): ReactElement => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      await signIn({
+      const response = await signIn({
         email,
         password,
       });
-      history.push('/classes');
+      if (response.success) {
+        history.push('/classes');
+      }
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);

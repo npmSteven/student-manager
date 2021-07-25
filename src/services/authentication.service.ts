@@ -21,6 +21,10 @@ export const isAuthenticated = () => {
   return true;
 };
 
+export const logout = () => {
+  localStorage.clear();
+}
+
 export const signUp = async (body: any) => {
   try {
     const response = await postApi('/authentication/signUp', body);

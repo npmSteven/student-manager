@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { ReactElement } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Loader } from '../../components/loader/Loader';
 import { useFormInput } from '../../hooks/useFormInput';
 import { signUp } from '../../services/authentication.service';
@@ -9,6 +10,11 @@ import { getCurrencies } from '../../services/selects.service';
 import { SignUpView } from './SignUpView';
 
 export const SignUp = (): ReactElement => {
+  const history = useHistory();
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [currencies, setCurrencies] = useState([]);
+  
   const [firstName, firstNameElement] = useFormInput('');
   const [middleName, middleNameElement] = useFormInput('');
   const [lastName, lastNameElement] = useFormInput('');
@@ -16,8 +22,6 @@ export const SignUp = (): ReactElement => {
   const [email, emailElement] = useFormInput('');
   const [password, passwordElement] = useFormInput('');
   const [currency, currencyElement] = useFormInput('GBP');
-  const [isLoading, setIsLoading] = useState(true);
-  const [currencies, setCurrencies] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -37,7 +41,7 @@ export const SignUp = (): ReactElement => {
   const onSubmit = async () => {
     try {
       setIsLoading(true);
-      await signUp({
+      const response = await signUp({
         firstName,
         middleName,
         lastName,
@@ -46,6 +50,9 @@ export const SignUp = (): ReactElement => {
         password,
         currency,
       });
+      if (response.success) {
+        history.push('/classes');
+      }
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
