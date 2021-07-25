@@ -8,6 +8,6 @@ export const AuthProvider = ({ children }) => {
   const handleAuth = () => {
     setAuth(!auth);
   };
-  const data = [auth, handleAuth];
+  const data: any = [auth, handleAuth];
   return <AuthContext.Provider value={data}>{children} </AuthContext.Provider>;
 };
