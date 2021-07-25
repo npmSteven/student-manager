@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const ClassCode = ({ classId, classes }) => {
+export const ClassCode = ({ classId, classes }: any) => {
   const [classCode, setClassCode] = useState('');
 
   useEffect(() => {

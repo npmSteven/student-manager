@@ -13,6 +13,7 @@ export const SignIn = (): ReactElement => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  // eslint-disable-next-line
   const [auth, handleAuth] = useAuth();
   const [email, emailElement] = useFormInput('');
   const [password, passwordElement] = useFormInput('');

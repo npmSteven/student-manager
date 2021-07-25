@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { isAuthenticated } from '../services/authentication.service';
 
 export const AuthContext = React.createContext(undefined);

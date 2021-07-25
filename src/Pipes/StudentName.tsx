@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const StudentName = ({ studentId, students }) => {
+export const StudentName = ({ studentId, students }: any) => {
   const [studentName, setStudentName] = useState('');
 
   useEffect(() => {

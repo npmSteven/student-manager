@@ -16,6 +16,7 @@ export const SignUp = (): ReactElement => {
   const [isLoading, setIsLoading] = useState(true);
   const [currencies, setCurrencies] = useState([]);
   
+  // eslint-disable-next-line
   const [auth, handleAuth] = useAuth();
 
   const [firstName, firstNameElement] = useFormInput('');

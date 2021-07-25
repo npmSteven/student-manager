@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export const TutorName = ({ tutorId, tutors }) => {
+export const TutorName = ({ tutorId, tutors }: any) => {
   const [tutorName, setTutorName] = useState('');
 
   useEffect(() => {
