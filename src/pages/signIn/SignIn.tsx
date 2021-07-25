@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { ReactElement } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Loader } from '../../components/loader/Loader';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { useFormInput } from '../../hooks/useFormInput';
 import { signIn } from '../../services/authentication.service';
 import { SignInView } from './SignInView';
@@ -12,6 +13,7 @@ export const SignIn = (): ReactElement => {
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isAuthed, setIsAuthed] = useAuthentication();
   const [email, emailElement] = useFormInput('');
   const [password, passwordElement] = useFormInput('');
 
@@ -24,6 +26,7 @@ export const SignIn = (): ReactElement => {
       });
       if (response.success) {
         history.push('/classes');
+        setIsAuthed(true);
       }
       setIsLoading(false);
     } catch (error) {

@@ -1,7 +1,8 @@
-import { ReactElement } from 'react';
+import { useAuthentication } from '../../hooks/useAuthentication';
 import { NavbarView } from './NavbarView';
 
-export const Navbar = (): ReactElement => {
+export const Navbar = () => {
+  const [isAuthed] = useAuthentication();
 
-    return <NavbarView />
+  return isAuthed ? <NavbarView /> : null;
 };
