@@ -28,13 +28,13 @@ export const Students = (): ReactElement => {
           classes: getClasses(),
         });
         if (students.success) {
-          setStudentsState(students.payload);
+          setStudentsState(students.payload.docs);
         }
         if (tutors.success) {
-          setTutorsState(tutors.payload);
+          setTutorsState(tutors.payload.docs);
         }
         if (classes.success) {
-          setClassesState(classes.payload);
+          setClassesState(classes.payload.docs);
         }
         setIsLoading(false);
       } catch (error) {

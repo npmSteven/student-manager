@@ -15,7 +15,7 @@ export const Tutors = (): ReactElement => {
       try {
         const tutors = await getTutors();
         if (tutors.success) {
-          setTutorsState(tutors.payload);
+          setTutorsState(tutors.payload.docs);
         }
         setIsLoading(false);
       } catch (error) {

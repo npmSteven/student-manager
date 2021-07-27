@@ -27,13 +27,13 @@ export const Meetings = (): ReactElement => {
           students: getStudents(),
         });
         if (meetings.success) {
-          setMeetingsState(meetings.payload);
+          setMeetingsState(meetings.payload.docs);
         }
         if (tutors.success) {
-          setTutorsState(tutors.payload);
+          setTutorsState(tutors.payload.docs);
         }
         if (students.success) {
-          setStudentsState(students.payload);
+          setStudentsState(students.payload.docs);
         }
         setIsLoading(false);
       } catch (error) {

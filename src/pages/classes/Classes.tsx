@@ -14,7 +14,7 @@ export const Classes = (): ReactElement => {
       try {
         const classes = await getClasses();
         if (classes.success) {
-          setClassesState(classes.payload);
+          setClassesState(classes.payload.docs);
         }
         setIsLoading(false);
       } catch (error) {
