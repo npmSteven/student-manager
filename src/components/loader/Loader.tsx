@@ -6,7 +6,7 @@ export const Loader = ({ component, isLoading }: any) => {
       style={{
         position: 'absolute',
         top: 0,
-        backgroundColor: 'white',
+        backgroundColor: 'transparent',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
