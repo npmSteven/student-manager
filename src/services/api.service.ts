@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import { getJwt } from './authentication.service';
 
-const apiRoot = 'https://student-manager-api.herokuapp.com/api/v1';
-// const apiRoot = 'http://localhost:8080/api/v1';
+// const apiRoot = 'https://student-manager-api.herokuapp.com/api/v1';
+const apiRoot = 'http://localhost:8080/api/v1';
 
 const getAuthHeaders = () => {
   const headers = new Headers();
@@ -20,10 +20,13 @@ const checkErrors = (data: any) => {
   }
 };
 
-export const getApi = async (route: string) => {
+export const getApi = async (route: string, params: any = {}) => {
   try {
-    const response = await fetch(`${apiRoot}${route}`, {
+    const url: any = new URL(`${apiRoot}${route}`);
+    url.search = new URLSearchParams(params).toString();
+    const response = await fetch(url, {
       headers: getAuthHeaders(),
+      
     });
     const data = await response.json();
     checkErrors(data);
@@ -85,14 +88,13 @@ export const deleteApi = async (route: string) => {
  * Calls multiple http endpoints in parallel
  * Returns object of resolved http requests with props
  */
- export const parallelPromise = async (parallelHttpRequests): Promise<any> => {
-  const resolvedHttpRequests = await Promise.all(Object.values(parallelHttpRequests));
-  const httpRequestKeys = Object.keys(parallelHttpRequests);
-  return resolvedHttpRequests.reduce(
-    (acc: any, hR, index) => {
-      acc[httpRequestKeys[index]] = hR;
-      return acc;
-    },
-    {},
+export const parallelPromise = async (parallelHttpRequests): Promise<any> => {
+  const resolvedHttpRequests = await Promise.all(
+    Object.values(parallelHttpRequests)
   );
+  const httpRequestKeys = Object.keys(parallelHttpRequests);
+  return resolvedHttpRequests.reduce((acc: any, hR, index) => {
+    acc[httpRequestKeys[index]] = hR;
+    return acc;
+  }, {});
 };

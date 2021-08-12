@@ -1,5 +1,15 @@
 import { deleteApi, getApi, postApi, putApi } from './api.service';
 
+export const getTutor = async (id: string) => {
+  try {
+    const response = await getApi(`/tutors/${id}`);
+    return response;
+  } catch (error) {
+    console.error('ERROR - getTutor():', error);
+    throw error;
+  }
+};
+
 export const getTutors = async () => {
   try {
     const response = await getApi('/tutors');
@@ -10,12 +20,12 @@ export const getTutors = async () => {
   }
 };
 
-export const getTutor = async (id: string) => {
+export const getTutorsBulk = async (tutorIds) => {
   try {
-    const response = await getApi(`/tutors/${id}`);
+    const response = await getApi('/tutors/bulk', {  ids: tutorIds });
     return response;
   } catch (error) {
-    console.error('ERROR - getTutor():', error);
+    console.error('ERROR - getTutorsBulk():', error);
     throw error;
   }
 };

@@ -10,6 +10,16 @@ export const getClasses = async () => {
   }
 };
 
+export const getClassesBulk = async (classIds) => {
+  try {
+    const response = await getApi('/classes/bulk', { ids: classIds });
+    return response;
+  } catch (error) {
+    console.error('ERROR - getClassesBulk():', error);
+    throw error;
+  }
+}
+
 export const getClass = async (id: string) => {
   try {
     const response = await getApi(`/classes/${id}`);

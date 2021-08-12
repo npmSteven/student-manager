@@ -10,6 +10,16 @@ export const getMeetings = async () => {
   }
 };
 
+export const getMeetingsBulk = async (meetingIds) => {
+  try {
+    const response = await getApi('/meetings/bulk', { ids: meetingIds });
+    return response;
+  } catch (error) {
+    console.error('ERROR - getMeetingsBulk():', error);
+    throw error;
+  }
+};
+
 export const getMeeting = async (id: string) => {
   try {
     const response = await getApi(`/meetings/${id}`);
