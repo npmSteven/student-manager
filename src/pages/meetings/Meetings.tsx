@@ -16,13 +16,13 @@ export const Meetings = (): ReactElement => {
     (async () => {
       try {
         // Get meetings
-        const response = await getMeetings();
+        const response = await getMeetings({ params: 5 });
         if (!response.success) {
           setIsLoading(false);
           return;
         }
         const meetings = response.payload.docs;
-        setMeetingsState(meetings);
+        setMeetingsState(response.payload);
 
         // Check if there are any meetings
         if (!meetings.length) {

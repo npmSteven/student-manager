@@ -1,3 +1,4 @@
+import { TableFooter } from '@material-ui/core';
 import MaUTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -9,6 +10,7 @@ export const TableView = ({
   headerGroups,
   rows,
   prepareRow,
+  data,
 }: any) => (
   <MaUTable {...getTableProps()}>
     <TableHead>
@@ -38,5 +40,11 @@ export const TableView = ({
         );
       })}
     </TableBody>
+    <TableFooter>
+      <p>Limit: {data.limit}</p>
+      <button>Next</button>
+      <p>Current Page: {data.page}</p>
+      <button disabled={data.hasPrevPage}>Prev</button>
+    </TableFooter>
   </MaUTable>
 );

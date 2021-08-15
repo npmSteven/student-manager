@@ -1,8 +1,8 @@
 import { deleteApi, getApi, postApi, putApi } from './api.service';
 
-export const getClasses = async () => {
+export const getClasses = async (params = {}) => {
   try {
-    const response = await getApi('/classes');
+    const response = await getApi('/classes', params);
     return response;
   } catch (error) {
     console.error('ERROR - getClasses():', error);
