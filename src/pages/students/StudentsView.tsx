@@ -5,7 +5,7 @@ import { ClassCode } from '../../Pipes/ClassCode';
 import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 import { TutorName } from '../../Pipes/TutorName';
 
-export const StudentsView = ({ students, tutors, classes }: any): ReactElement => {
+export const StudentsView = ({ students, tutors, classes, getData, updateData, params }: any): ReactElement => {
   const columns = [
     {
       Header: 'First Name',
@@ -59,7 +59,7 @@ export const StudentsView = ({ students, tutors, classes }: any): ReactElement =
   return (
     <div>
       <h1>Students</h1>
-      <Table data={students} columns={columns} />
+      <Table data={students} columns={columns} getData={getData} updateData={updateData} params={params} />
     </div>
   );
 };

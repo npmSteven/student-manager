@@ -10,9 +10,9 @@ export const getTutor = async (id: string) => {
   }
 };
 
-export const getTutors = async () => {
+export const getTutors = async (params = {}) => {
   try {
-    const response = await getApi('/tutors');
+    const response = await getApi('/tutors', params);
     return response;
   } catch (error) {
     console.error('ERROR - getTutors():', error);

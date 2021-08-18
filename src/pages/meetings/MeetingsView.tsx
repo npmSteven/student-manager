@@ -6,7 +6,7 @@ import { StudentName } from '../../Pipes/StudentName';
 import { TutorName } from '../../Pipes/TutorName';
 import { timestampToDate } from '../../services/time.service';
 
-export const MeetingsView = ({ meetings, tutors, students }): ReactElement => {
+export const MeetingsView = ({ meetings, tutors, students, getData, updateData, params }): ReactElement => {
   const columns = [
     {
       Header: 'Period Start',
@@ -72,7 +72,7 @@ export const MeetingsView = ({ meetings, tutors, students }): ReactElement => {
   return (
     <div>
       <h1>Meetings</h1>
-      <Table data={meetings} columns={columns} />
+      <Table data={meetings} columns={columns} getData={getData} updateData={updateData} params={params} />
     </div>
   );
 };

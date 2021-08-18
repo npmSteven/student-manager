@@ -1,27 +1,34 @@
 import { useState, useEffect, ReactElement } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Loader } from '../../components/loader/Loader';
+import { updateStudents } from '../../redux/slices/studentsSlice';
 import { getClassesBulk } from '../../services/classes.service';
 import { getStudents } from '../../services/students.service';
 import { getTutorsBulk } from '../../services/tutors.service';
 import { StudentsView } from './StudentsView';
 
 export const Students = (): ReactElement => {
+  // State
   const [isLoading, setIsLoading] = useState(true);
-  const [studentsState, setStudentsState] = useState([]);
   const [tutorsState, setTutorsState] = useState([]);
   const [classesState, setClassesState] = useState([]);
+
+  // Redux
+  const dispatch = useDispatch();
+  const studentsStore = useSelector((state: any) => state.students);
+  const studentsParamsStore = useSelector((state: any) => state.studentsParams);
 
   useEffect(() => {
     (async () => {
       try {
-        const response = await getStudents();
+        const response = await getStudents(studentsParamsStore);
         if (!response.success) {
           setIsLoading(false);
           return;
         }
         const students = response.payload.docs;
-        setStudentsState(students);
+        dispatch(updateStudents(response.payload));
 
         if (!students.length) {
           setIsLoading(false);
@@ -61,9 +68,12 @@ export const Students = (): ReactElement => {
       isLoading={isLoading}
       component={
         <StudentsView
-          students={studentsState}
+          students={studentsStore}
           tutors={tutorsState}
           classes={classesState}
+          getData={getStudents}
+          updateData={updateStudents}
+          params={studentsParamsStore}
         />
       }
     />

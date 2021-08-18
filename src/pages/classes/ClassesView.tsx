@@ -49,12 +49,15 @@ const columns = [
 ];
 
 export const ClassesView = ({
-  classes
+  classes,
+  getData,
+  updateData,
+  params,
 }): ReactElement => {
   return (
     <div>
       <h1>Classes</h1>
-      <Table columns={columns} data={classes} />
+      <Table columns={columns} data={classes} getData={getData} updateData={updateData} params={params} />
     </div>
   );
 };

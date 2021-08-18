@@ -1,20 +1,27 @@
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { ReactElement } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../components/loader/Loader';
+import { updateClasses } from '../../redux/slices/classesSlice';
 import { getClasses } from '../../services/classes.service';
 import { ClassesView } from './ClassesView';
 
 export const Classes = (): ReactElement => {
+  // State
   const [isLoading, setIsLoading] = useState(true);
-  const [classesState, setClassesState] = useState([]);
+
+  // Redux
+  const dispatch = useDispatch();
+  const classesStore = useSelector((state: any) => state.classes);
+  const classesParamsStore = useSelector((state: any) => state.classesParams);
 
   useEffect(() => {
     (async () => {
       try {
-        const classes = await getClasses();
+        const classes = await getClasses(classesParamsStore);
         if (classes.success) {
-          setClassesState(classes.payload);
+          dispatch(updateClasses(classes.payload));
         }
         setIsLoading(false);
       } catch (error) {
@@ -26,7 +33,7 @@ export const Classes = (): ReactElement => {
   return (
     <Loader
       isLoading={isLoading}
-      component={<ClassesView classes={classesState} />}
+      component={<ClassesView classes={classesStore} getData={getClasses} updateData={updateClasses} params={classesParamsStore} />}
     />
   );
 };

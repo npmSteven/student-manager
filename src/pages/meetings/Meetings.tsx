@@ -1,28 +1,38 @@
 import { useState, useEffect, ReactElement } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Loader } from '../../components/loader/Loader';
+import { updateMeetingsParams } from '../../redux/slices/meetingsParamsSlice';
+import { updateMeetings } from '../../redux/slices/meetingsSlice';
 import { getMeetings } from '../../services/meetings.service';
 import { getStudentsBulk } from '../../services/students.service';
 import { getTutorsBulk } from '../../services/tutors.service';
 import { MeetingsView } from './MeetingsView';
 
 export const Meetings = (): ReactElement => {
+
+  // State
   const [isLoading, setIsLoading] = useState(true);
-  const [meetingsState, setMeetingsState] = useState([]);
   const [tutorsState, setTutorsState] = useState([]);
   const [studentsState, setStudentsState] = useState([]);
+
+  // Redux
+  const dispatch = useDispatch();
+  const meetingsStore = useSelector((state: any) => state.meetings);
+  const meetingsParamsStore = useSelector((state: any) => state.meetingsParams);
 
   useEffect(() => {
     (async () => {
       try {
         // Get meetings
-        const response = await getMeetings({ params: 5 });
+        const response = await getMeetings(meetingsParamsStore);
         if (!response.success) {
           setIsLoading(false);
           return;
         }
+        
         const meetings = response.payload.docs;
-        setMeetingsState(response.payload);
+        dispatch(updateMeetings(response.payload));
 
         // Check if there are any meetings
         if (!meetings.length) {
@@ -65,9 +75,14 @@ export const Meetings = (): ReactElement => {
       isLoading={isLoading}
       component={
         <MeetingsView
-          meetings={meetingsState}
+          meetings={meetingsStore}
           tutors={tutorsState}
           students={studentsState}
+          
+          getData={getMeetings}
+          updateData={updateMeetings}
+
+          params={meetingsParamsStore}
         />
       }
     />

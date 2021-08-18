@@ -1,21 +1,27 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { ReactElement } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../components/loader/Loader';
+import { updateTutors } from '../../redux/slices/tutorsSlice';
 import { getTutors } from '../../services/tutors.service';
 
 import { TutorsView } from './TutorsView';
 
 export const Tutors = (): ReactElement => {
   const [isLoading, setIsLoading] = useState(true);
-  const [tutorsState, setTutorsState] = useState([]);
+
+  // Redux
+  const dispatch = useDispatch();
+  const tutorsStore = useSelector((state: any) => state.tutors);
+  const tutorsParamsStore = useSelector((state: any) => state.tutorsParams);
 
   useEffect(() => {
     (async () => {
       try {
-        const tutors = await getTutors();
+        const tutors = await getTutors(tutorsParamsStore);
         if (tutors.success) {
-          setTutorsState(tutors.payload.docs);
+          dispatch(updateTutors(tutors.payload));
         }
         setIsLoading(false);
       } catch (error) {
@@ -24,5 +30,17 @@ export const Tutors = (): ReactElement => {
     })();
   }, []);
 
-  return <Loader isLoading={isLoading} component={<TutorsView tutors={tutorsState} />} />;
+  return (
+    <Loader
+      isLoading={isLoading}
+      component={
+        <TutorsView
+          tutors={tutorsStore}
+          getData={getTutors}
+          updateData={updateTutors}
+          params={tutorsParamsStore}
+        />
+      }
+    />
+  );
 };
