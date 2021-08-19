@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  limit: 2,
+  limit: 10,
 };
 
 export const studentsParamsSlice = createSlice({
