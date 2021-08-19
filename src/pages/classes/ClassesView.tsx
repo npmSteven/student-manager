@@ -53,11 +53,12 @@ export const ClassesView = ({
   getData,
   updateData,
   params,
+  updateParams,
 }): ReactElement => {
   return (
     <div>
       <h1>Classes</h1>
-      <Table columns={columns} data={classes} getData={getData} updateData={updateData} params={params} />
+      <Table columns={columns} data={classes} getData={getData} updateData={updateData} params={params} updateParams={updateParams} />
     </div>
   );
 };

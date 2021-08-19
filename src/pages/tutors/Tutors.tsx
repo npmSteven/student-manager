@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../components/loader/Loader';
+import { updateTutorsParams } from '../../redux/slices/tutorsParamsSlice';
 import { updateTutors } from '../../redux/slices/tutorsSlice';
 import { getTutors } from '../../services/tutors.service';
 
@@ -39,6 +40,7 @@ export const Tutors = (): ReactElement => {
           getData={getTutors}
           updateData={updateTutors}
           params={tutorsParamsStore}
+          updateParams={updateTutorsParams}
         />
       }
     />

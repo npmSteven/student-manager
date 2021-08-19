@@ -7,6 +7,7 @@ export const TutorsView = ({
   getData,
   updateData,
   params,
+  updateParams,
 }): ReactElement => {
   const columns = [
     {
@@ -39,6 +40,7 @@ export const TutorsView = ({
         getData={getData}
         updateData={updateData}
         params={params}
+        updateParams={updateParams}
       />
     </div>
   );

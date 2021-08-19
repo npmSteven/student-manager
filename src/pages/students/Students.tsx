@@ -2,6 +2,7 @@ import { useState, useEffect, ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Loader } from '../../components/loader/Loader';
+import { updateStudentsParams } from '../../redux/slices/studentsParamsSlice';
 import { updateStudents } from '../../redux/slices/studentsSlice';
 import { getClassesBulk } from '../../services/classes.service';
 import { getStudents } from '../../services/students.service';
@@ -74,6 +75,7 @@ export const Students = (): ReactElement => {
           getData={getStudents}
           updateData={updateStudents}
           params={studentsParamsStore}
+          updateParams={updateStudentsParams}
         />
       }
     />

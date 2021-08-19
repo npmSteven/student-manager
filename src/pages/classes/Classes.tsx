@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../components/loader/Loader';
+import { updateClassesParams } from '../../redux/slices/classesParamsSlice';
 import { updateClasses } from '../../redux/slices/classesSlice';
 import { getClasses } from '../../services/classes.service';
 import { ClassesView } from './ClassesView';
@@ -33,7 +34,7 @@ export const Classes = (): ReactElement => {
   return (
     <Loader
       isLoading={isLoading}
-      component={<ClassesView classes={classesStore} getData={getClasses} updateData={updateClasses} params={classesParamsStore} />}
+      component={<ClassesView classes={classesStore} getData={getClasses} updateData={updateClasses} params={classesParamsStore} updateParams={updateClassesParams} />}
     />
   );
 };

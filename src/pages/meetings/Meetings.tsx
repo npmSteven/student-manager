@@ -83,6 +83,7 @@ export const Meetings = (): ReactElement => {
           updateData={updateMeetings}
 
           params={meetingsParamsStore}
+          updateParams={updateMeetingsParams}
         />
       }
     />

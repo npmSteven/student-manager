@@ -1,9 +1,12 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useTable } from 'react-table';
 
 import { TableView } from './TableView';
 
-export const Table = ({ columns, data, getData, updateData, params }: any) => {
+export const Table = ({ columns, data, getData, updateData, params, updateParams }: any) => {
+  const [limit, setLimit] = useState(params.limit);
+
   const dispatch = useDispatch();
 
   const table = useTable({
@@ -11,9 +14,21 @@ export const Table = ({ columns, data, getData, updateData, params }: any) => {
     data: data.docs,
   });
 
+  const changeLimit = async limit => {
+    setLimit(limit);
+    const newParams = { ...params, limit };
+    dispatch(updateParams(newParams));
+    const newData = await getData(newParams);
+    if (newData.success) {
+      dispatch(updateData(newData.payload));
+    }
+  };
+
   const nextPage = async () => {
     if (data.hasNextPage) {
-      const newData = await getData({ ...params, page: data.nextPage });
+      const newParams = { ...params, page: data.nextPage };
+      dispatch(updateParams(newParams));
+      const newData = await getData(newParams);
       if (newData.success) {
         dispatch(updateData(newData.payload));
       }
@@ -22,7 +37,9 @@ export const Table = ({ columns, data, getData, updateData, params }: any) => {
 
   const prevPage = async () => {
     if (data.hasPrevPage) {
-      const newData = await getData({ ...params, page: data.prevPage });
+      const newParams = { ...params, page: data.prevPage };
+      dispatch(updateParams(newParams));
+      const newData = await getData(newParams);
       if (newData.success) {
         dispatch(updateData(newData.payload));
       }
@@ -35,6 +52,8 @@ export const Table = ({ columns, data, getData, updateData, params }: any) => {
       data={data}
       nextPage={nextPage}
       prevPage={prevPage}
+      changeLimit={changeLimit}
+      limit={limit}
     />
   );
 };
