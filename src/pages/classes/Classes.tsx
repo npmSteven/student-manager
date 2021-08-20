@@ -1,6 +1,4 @@
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { ReactElement } from 'react';
+import { ReactElement, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader } from '../../components/loader/Loader';
 import { updateClassesParams } from '../../redux/slices/classesParamsSlice';

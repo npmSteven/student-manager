@@ -12,13 +12,21 @@ import { Settings } from '../pages/settings/Settings';
 import { Students } from '../pages/students/Students';
 import { Tutors } from '../pages/tutors/Tutors';
 import { Logout } from '../pages/logout/Logout';
+import { ClassesEdit } from '../pages/classes/classesEdit/ClassesEdit';
+import { ClassesAdd } from '../pages/classes/classesAdd/ClassesAdd';
+import { ClassesRead } from '../pages/classes/classesRead/ClassesRead';
 
 export const Routes = () => {
   return (
     <Switch>
       <NotAuthenticatedRoute exact path="/signIn" component={SignIn} />
       <NotAuthenticatedRoute exact path="/signUp" component={SignUp} />
+      {/* Classes */}
       <AuthenticatedRoute exact path="/classes" component={Classes} />
+      <AuthenticatedRoute exact path="/classes/edit/:id" component={ClassesEdit} />
+      <AuthenticatedRoute exact path="/classes/read/:id" component={ClassesRead} />
+      <AuthenticatedRoute exact path="/classes/add" component={ClassesAdd} />
+
       <AuthenticatedRoute exact path="/meetings" component={Meetings} />
       <AuthenticatedRoute exact path="/settings" component={Settings} />
       <AuthenticatedRoute exact path="/students" component={Students} />
