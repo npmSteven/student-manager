@@ -20,6 +20,16 @@ export const getTutors = async (params = {}) => {
   }
 };
 
+export const getTutorsNames = async () => {
+  try {
+    const response = await getApi('/tutors', { select: '_id firstName lastName', limit: 1000 });
+    return response;
+  } catch (error) {
+    console.error('ERROR - getTutorsNames():', error);
+    throw error;
+  }
+};
+
 export const getTutorsBulk = async (tutorIds) => {
   try {
     const response = await getApi('/tutors/bulk', {  ids: tutorIds });

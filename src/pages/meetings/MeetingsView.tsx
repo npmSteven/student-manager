@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
 import { Boolean } from '../../Pipes/Boolean';
 import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
@@ -120,6 +121,9 @@ export const MeetingsView = ({ meetings, tutors, students, deleteMeetingUi, read
   return (
     <div>
       <h1>Meetings</h1>
+      <Link to="/meetings/add">
+        <button>Add</button>
+      </Link>
       <Table data={meetings} columns={columns} getData={getData} updateData={updateData} params={params} updateParams={updateParams} />
     </div>
   );

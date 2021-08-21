@@ -10,6 +10,16 @@ export const getClasses = async (params = {}) => {
   }
 };
 
+export const getClassesClassCode = async () => {
+  try {
+    const response = await getApi('/classes', { select: '_id classCode', limit: 1000 });
+    return response;
+  } catch (error) {
+    console.error('ERROR - getClassesClassCode():', error);
+    throw error;
+  }
+};
+
 export const getClassesBulk = async (classIds) => {
   try {
     const response = await getApi('/classes/bulk', { ids: classIds });

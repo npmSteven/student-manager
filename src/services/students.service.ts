@@ -10,6 +10,26 @@ export const getStudents = async (params = {}) => {
   }
 };
 
+export const getStudentsNames = async () => {
+  try {
+    const response = await getApi('/students', { select: '_id firstName lastName', limit: 1000 });
+    return response;
+  } catch (error) {
+    console.error('ERROR - getStudentsNames():', error);
+    throw error;
+  }
+};
+
+export const getStudentsNamesByClass = async (classId) => {
+  try {
+    const response = await getApi('/students', { select: '_id firstName lastName', limit: 1000, classId });
+    return response;
+  } catch (error) {
+    console.error('ERROR - getStudentsNamesByClass():', error);
+    throw error;
+  }
+};
+
 export const getStudentsBulk = async (studentIds) => {
   try {
     const response = await getApi('/students/bulk', { ids: studentIds });

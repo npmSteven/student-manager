@@ -26,7 +26,7 @@ export const ClassesAddView = ({
         initialValues={{
           classCode: '',
           periodStart: moment(new Date()),
-          periodEnd: moment(new Date()).add(50, 'minutes'),
+          periodEnd: moment(new Date()).add(6, 'months'),
           classType: '',
           location: '',
           university: '',
