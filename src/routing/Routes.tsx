@@ -18,6 +18,12 @@ import { ClassesRead } from '../pages/classes/classesRead/ClassesRead';
 import { MeetingsAdd } from '../pages/meetings/meetingsAdd/MeetingsAdd';
 import { MeetingsEdit } from '../pages/meetings/meetingsEdit/MeetingsEdit';
 import { MeetingsRead } from '../pages/meetings/meetingsRead/MeetingsRead';
+import { StudentsEdit } from '../pages/students/studentsEdit/StudentsEdit';
+import { StudentsRead } from '../pages/students/studentsRead/StudentsRead';
+import { StudentsAdd } from '../pages/students/studentsAdd/StudentsAdd';
+import { TutorsEdit } from '../pages/tutors/tutorsEdit/TutorsEdit';
+import { TutorsRead } from '../pages/tutors/tutorsRead/TutorsRead';
+import { TutorsAdd } from '../pages/tutors/tutorsAdd/TutorsAdd';
 
 export const Routes = () => {
   return (
@@ -36,10 +42,22 @@ export const Routes = () => {
       <AuthenticatedRoute exact path="/meetings/read/:id" component={MeetingsRead} />
       <AuthenticatedRoute exact path="/meetings/add" component={MeetingsAdd} />
 
-      <AuthenticatedRoute exact path="/settings" component={Settings} />
+      {/* Students */}
       <AuthenticatedRoute exact path="/students" component={Students} />
+      <AuthenticatedRoute exact path="/students/edit/:id" component={StudentsEdit} />
+      <AuthenticatedRoute exact path="/students/read/:id" component={StudentsRead} />
+      <AuthenticatedRoute exact path="/students/add" component={StudentsAdd} />
+
+      {/* Tutors */}
       <AuthenticatedRoute exact path="/tutors" component={Tutors} />
+      <AuthenticatedRoute exact path="/tutors/edit/:id" component={TutorsEdit} />
+      <AuthenticatedRoute exact path="/tutors/read/:id" component={TutorsRead} />
+      <AuthenticatedRoute exact path="/tutors/add" component={TutorsAdd} />
+
+      <AuthenticatedRoute exact path="/settings" component={Settings} />
+      
       <Route exact path="/logout" component={Logout} />
+
       <Redirect to="/classes" />
     </Switch>
   );

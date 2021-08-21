@@ -9,6 +9,9 @@ export const StudentsView = ({
   students,
   tutors,
   classes,
+  editStudent,
+  readStudent,
+  deleteStudentUi,
   getData,
   updateData,
   params,
@@ -77,6 +80,7 @@ export const StudentsView = ({
                 color: 'white',
                 cursor: 'pointer',
               }}
+              onClick={() => readStudent(_id)}
             >
               View
             </p>
@@ -92,6 +96,7 @@ export const StudentsView = ({
                 color: 'white',
                 cursor: 'pointer',
               }}
+              onClick={() => editStudent(_id)}
             >
               Edit
             </p>
@@ -107,6 +112,7 @@ export const StudentsView = ({
                 color: 'white',
                 cursor: 'pointer',
               }}
+              onClick={() => deleteStudentUi(_id)}
             >
               Remove
             </p>

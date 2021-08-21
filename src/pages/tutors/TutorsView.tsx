@@ -4,6 +4,9 @@ import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 
 export const TutorsView = ({
   tutors,
+  editTutor,
+  readTutor,
+  deleteTutorUi,
   getData,
   updateData,
   params,
@@ -52,6 +55,7 @@ export const TutorsView = ({
                 color: 'white',
                 cursor: 'pointer',
               }}
+              onClick={() => readTutor(_id)}
             >
               View
             </p>
@@ -67,6 +71,7 @@ export const TutorsView = ({
                 color: 'white',
                 cursor: 'pointer',
               }}
+              onClick={() => editTutor(_id)}
             >
               Edit
             </p>
@@ -82,6 +87,7 @@ export const TutorsView = ({
                 color: 'white',
                 cursor: 'pointer',
               }}
+              onClick={() => deleteTutorUi(_id)}
             >
               Remove
             </p>
