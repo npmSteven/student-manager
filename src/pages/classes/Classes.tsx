@@ -1,5 +1,6 @@
 import { ReactElement, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { Loader } from '../../components/loader/Loader';
 import { updateClassesParams } from '../../redux/slices/classesParamsSlice';
 import { updateClasses } from '../../redux/slices/classesSlice';
@@ -7,6 +8,8 @@ import { deleteClass, getClasses } from '../../services/classes.service';
 import { ClassesView } from './ClassesView';
 
 export const Classes = (): ReactElement => {
+  const history = useHistory();
+
   // State
   const [isLoadingState, setIsLoadingState] = useState(true);
 
@@ -29,7 +32,9 @@ export const Classes = (): ReactElement => {
     })();
   }, []);
 
-  const deleteNoteUi = async (id) => {
+  const editClass = (id) => history.push(`/classes/edit/${id}`);
+
+  const deleteClassUi = async (id) => {
     try {
       setIsLoadingState(true);
       const deletedClass = await deleteClass(id);
@@ -44,12 +49,22 @@ export const Classes = (): ReactElement => {
       console.error('ERROR - deleteNoteUi():', error);
       setIsLoadingState(false);
     }
-  }
+  };
 
   return (
     <Loader
       isLoading={isLoadingState}
-      component={<ClassesView classes={classesStore} getData={getClasses} updateData={updateClasses} params={classesParamsStore} updateParams={updateClassesParams} deleteNoteUi={deleteNoteUi} />}
+      component={
+        <ClassesView
+          classes={classesStore}
+          getData={getClasses}
+          updateData={updateClasses}
+          params={classesParamsStore}
+          updateParams={updateClassesParams}
+          deleteClassUi={deleteClassUi}
+          editClass={editClass}
+        />
+      }
     />
   );
 };

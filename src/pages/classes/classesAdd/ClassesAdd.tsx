@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 import { Loader } from "../../../components/loader/Loader";
 import { updateClassTypes } from "../../../redux/slices/classTypesSlice";
 import { updateLocations } from "../../../redux/slices/locationsSlice";
-import { addClass } from "../../../services/classes.service";
+import { addClass, getClass } from "../../../services/classes.service";
 import { getClassTypes, getLocations } from "../../../services/selects.service";
 
 import { ClassesAddView } from "./ClassesAddView";
@@ -35,7 +35,7 @@ export const ClassesAdd = (): ReactElement => {
         }
         setIsLoadingState(false);
       } catch (error) {
-        console.error('ERROR - ClassesAdd - useEffect():', error);
+        console.error('ERROR - ClassesAdd.tsx - useEffect():', error);
         setIsLoadingState(false);
       }
     })();

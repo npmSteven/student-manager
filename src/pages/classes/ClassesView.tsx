@@ -11,7 +11,8 @@ export const ClassesView = ({
   updateData,
   params,
   updateParams,
-  deleteNoteUi,
+  deleteClassUi,
+  editClass,
 }): ReactElement => {
   const columns = [
     {
@@ -53,19 +54,34 @@ export const ClassesView = ({
         },
       }) => {
         return (
-          <p
-            style={{
-              padding: 5,
-              backgroundColor: 'red',
-              textAlign: 'center',
-              borderRadius: 5,
-              color: 'white',
-              cursor: 'pointer',
-            }}
-            onClick={() => deleteNoteUi(_id)}
-          >
-            Remove
-          </p>
+          <div>
+            <p
+              style={{
+                padding: 5,
+                backgroundColor: 'red',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+              onClick={() => deleteClassUi(_id)}
+            >
+              Remove
+            </p>
+            <p
+              style={{
+                padding: 5,
+                backgroundColor: 'blue',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+              onClick={() => editClass(_id)}
+            >
+              Edit
+            </p>
+          </div>
         );
       },
     },

@@ -1,10 +1,10 @@
 import { ReactElement } from "react";
-import Datetime from 'react-datetime';
 import { Link } from "react-router-dom";
 import { Field, Form, Formik } from "formik";
+import moment from "moment";
+import Datetime from 'react-datetime';
 
 import './ClassesAddStyles.css';
-import moment from "moment";
 
 export const ClassesAddView = ({
   locations,
@@ -33,7 +33,7 @@ export const ClassesAddView = ({
         }}
         onSubmit={onSubmit}
       >
-        {({values, handleChange, handleSubmit, isSubmitting, setFieldValue }) => (
+        {({values, setFieldValue }) => (
           <Form
             style={{
               display: 'flex',

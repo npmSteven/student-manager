@@ -18,7 +18,7 @@ export const getClassesBulk = async (classIds) => {
     console.error('ERROR - getClassesBulk():', error);
     throw error;
   }
-}
+};
 
 export const getClass = async (id: string) => {
   try {
@@ -40,9 +40,20 @@ export const addClass = async (classObj) => {
   }
 };
 
-export const updateClass = async (id, classObj) => {
+export const updateClass = async (
+  id,
+  { classCode, periodStart, periodEnd, location, classType, university }
+) => {
   try {
-    const response = await putApi(`/classes/${id}`, classObj);
+    const newClass = {
+      classCode,
+      periodStart,
+      periodEnd,
+      location,
+      classType,
+      university,
+    };
+    const response = await putApi(`/classes/${id}`, newClass);
     return response;
   } catch (error) {
     console.error('ERROR - updateClass():', error);
