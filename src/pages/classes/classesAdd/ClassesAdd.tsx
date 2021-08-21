@@ -44,22 +44,20 @@ export const ClassesAdd = (): ReactElement => {
   const onSubmit = async (values) => {
     try {
       if (
-        !values.classCode ||
         !values.periodStart ||
-        !values.periodEnd ||
-        !values.classType ||
-        !values.location ||
-        !values.university
+        !values.periodEnd
       ) return;
       setIsLoadingState(true);
       // Convert periodStart and periodEnd to timestamps
-      values.periodStart = values.periodStart.unix();
-      values.periodEnd = values.periodEnd.unix();
+      const newValues = {...values};
+      newValues.periodStart = newValues.periodStart.unix();
+      newValues.periodEnd = newValues.periodEnd.unix();
   
-      // No point in updating redux store with new class as we will redirect them to classes which will do a get req
-      await addClass(values);
+      const newClass = await addClass(newValues);
       setIsLoadingState(false);
-      history.push('/classes');
+      if (newClass.success) {
+        history.push('/classes');
+      }
     } catch (error) {
       console.error('ERROR - ClassesAdd.tsx - onSubmit():', error);
       setIsLoadingState(false);
