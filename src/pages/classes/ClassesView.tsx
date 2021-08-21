@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
 import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 import { timestampToDate } from '../../services/time.service';
@@ -58,6 +59,9 @@ export const ClassesView = ({
   return (
     <div>
       <h1>Classes</h1>
+      <Link to="/classes/add">
+        <button>Add</button>
+      </Link>
       <Table columns={columns} data={classes} getData={getData} updateData={updateData} params={params} updateParams={updateParams} />
     </div>
   );
