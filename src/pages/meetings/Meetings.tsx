@@ -1,18 +1,21 @@
 import { useState, useEffect, ReactElement } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 import { Loader } from '../../components/loader/Loader';
 import { updateMeetingsParams } from '../../redux/slices/meetingsParamsSlice';
 import { updateMeetings } from '../../redux/slices/meetingsSlice';
-import { getMeetings } from '../../services/meetings.service';
+import { deleteMeeting, getMeetings } from '../../services/meetings.service';
 import { getStudentsBulk } from '../../services/students.service';
 import { getTutorsBulk } from '../../services/tutors.service';
 import { MeetingsView } from './MeetingsView';
 
 export const Meetings = (): ReactElement => {
 
+  const history = useHistory();
+
   // State
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingState, setIsLoadingState] = useState(true);
   const [tutorsState, setTutorsState] = useState([]);
   const [studentsState, setStudentsState] = useState([]);
 
@@ -27,7 +30,7 @@ export const Meetings = (): ReactElement => {
         // Get meetings
         const response = await getMeetings(meetingsParamsStore);
         if (!response.success) {
-          setIsLoading(false);
+          setIsLoadingState(false);
           return;
         }
         
@@ -36,7 +39,7 @@ export const Meetings = (): ReactElement => {
 
         // Check if there are any meetings
         if (!meetings.length) {
-          setIsLoading(false);
+          setIsLoadingState(false);
           return;
         }
 
@@ -62,22 +65,47 @@ export const Meetings = (): ReactElement => {
           }
         }
 
-        setIsLoading(false);
+        setIsLoadingState(false);
       } catch (error) {
         console.error('ERROR - Meetings.tsx - useEffect():', error);
-        setIsLoading(false);
+        setIsLoadingState(false);
       }
     })();
   }, []);
 
+  const readMeeting = (id) => history.push(`/meetings/read/${id}`);
+
+  const editMeeting = (id) => history.push(`/meetings/edit/${id}`);
+
+  const deleteMeetingUi = async (id) => {
+    try {
+      setIsLoadingState(true);
+      const deletedMeeting = await deleteMeeting(id);
+      if (deletedMeeting.success) {
+        const meetings = await getMeetings(meetingsParamsStore);
+        if (meetings.success) {
+          dispatch(updateMeetings(meetings.payload));
+        }
+      }
+      setIsLoadingState(false);
+    } catch (error) {
+      console.error('ERROR - deleteMeetingUi():', error);
+      setIsLoadingState(false);
+    }
+  };
+
   return (
     <Loader
-      isLoading={isLoading}
+      isLoading={isLoadingState}
       component={
         <MeetingsView
           meetings={meetingsStore}
           tutors={tutorsState}
           students={studentsState}
+
+          editMeeting={editMeeting}
+          readMeeting={readMeeting}
+          deleteMeetingUi={deleteMeetingUi}
           
           getData={getMeetings}
           updateData={updateMeetings}

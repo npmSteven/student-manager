@@ -5,28 +5,30 @@ import { ClassCode } from '../../Pipes/ClassCode';
 import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 import { TutorName } from '../../Pipes/TutorName';
 
-export const StudentsView = ({ students, tutors, classes, getData, updateData, params, updateParams }: any): ReactElement => {
+export const StudentsView = ({
+  students,
+  tutors,
+  classes,
+  getData,
+  updateData,
+  params,
+  updateParams,
+}: any): ReactElement => {
   const columns = [
     {
       Header: 'First Name',
       accessor: 'firstName',
-      Cell: ({ value }) => (
-        <CopyToClipboard text={value} />
-      )
+      Cell: ({ value }) => <CopyToClipboard text={value} />,
     },
     {
       Header: 'Last Name',
       accessor: 'lastName',
-      Cell: ({ value }) => (
-        <CopyToClipboard text={value} />
-      )
+      Cell: ({ value }) => <CopyToClipboard text={value} />,
     },
     {
       Header: 'Email',
       accessor: 'email',
-      Cell: ({ value }) => (
-        <CopyToClipboard text={value} />
-      )
+      Cell: ({ value }) => <CopyToClipboard text={value} />,
     },
     {
       Header: 'Tutor',
@@ -41,9 +43,7 @@ export const StudentsView = ({ students, tutors, classes, getData, updateData, p
     {
       Header: 'Timezone',
       accessor: 'timezone',
-      Cell: ({ value }) => (
-        <CopyToClipboard text={value} />
-      )
+      Cell: ({ value }) => <CopyToClipboard text={value} />,
     },
     {
       Header: 'Intro Email',
@@ -55,11 +55,77 @@ export const StudentsView = ({ students, tutors, classes, getData, updateData, p
       accessor: 'didSendSlackInvite',
       Cell: ({ value }) => <Boolean has={value} />,
     },
+    {
+      Header: 'Actions',
+      accessor: '',
+      Cell: ({
+        row: {
+          original: { _id },
+        },
+      }) => {
+        return (
+          <div>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'green',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              View
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'blue',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              Edit
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'red',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              Remove
+            </p>
+          </div>
+        );
+      },
+    },
   ];
   return (
     <div>
       <h1>Students</h1>
-      <Table data={students} columns={columns} getData={getData} updateData={updateData} params={params} updateParams={updateParams} />
+      <Table
+        data={students}
+        columns={columns}
+        getData={getData}
+        updateData={updateData}
+        params={params}
+        updateParams={updateParams}
+      />
     </div>
   );
 };

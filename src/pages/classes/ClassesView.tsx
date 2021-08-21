@@ -13,6 +13,7 @@ export const ClassesView = ({
   updateParams,
   deleteClassUi,
   editClass,
+  readClass,
 }): ReactElement => {
   const columns = [
     {
@@ -58,19 +59,25 @@ export const ClassesView = ({
             <p
               style={{
                 padding: 5,
-                backgroundColor: 'red',
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'green',
                 textAlign: 'center',
                 borderRadius: 5,
                 color: 'white',
                 cursor: 'pointer',
               }}
-              onClick={() => deleteClassUi(_id)}
+              onClick={() => readClass(_id)}
             >
-              Remove
+              View
             </p>
             <p
               style={{
                 padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
                 backgroundColor: 'blue',
                 textAlign: 'center',
                 borderRadius: 5,
@@ -80,6 +87,22 @@ export const ClassesView = ({
               onClick={() => editClass(_id)}
             >
               Edit
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5, 
+                backgroundColor: 'red',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+              onClick={() => deleteClassUi(_id)}
+            >
+              Remove
             </p>
           </div>
         );

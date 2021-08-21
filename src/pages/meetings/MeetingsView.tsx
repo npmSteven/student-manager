@@ -6,7 +6,7 @@ import { StudentName } from '../../Pipes/StudentName';
 import { TutorName } from '../../Pipes/TutorName';
 import { timestampToDate } from '../../services/time.service';
 
-export const MeetingsView = ({ meetings, tutors, students, getData, updateData, params, updateParams }): ReactElement => {
+export const MeetingsView = ({ meetings, tutors, students, deleteMeetingUi, readMeeting, editMeeting, getData, updateData, params, updateParams }): ReactElement => {
   const columns = [
     {
       Header: 'Period Start',
@@ -33,20 +33,6 @@ export const MeetingsView = ({ meetings, tutors, students, getData, updateData, 
       ),
     },
     {
-      Header: 'Hourly Rate',
-      accessor: 'hourlyRate',
-      Cell: ({ value }) => (
-        <CopyToClipboard text={value} />
-      )
-    },
-    {
-      Header: 'Currency',
-      accessor: 'currency',
-      Cell: ({ value }) => (
-        <CopyToClipboard text={value} />
-      )
-    },
-    {
       Header: 'Show',
       accessor: 'didShow',
       Cell: ({ value }) => (
@@ -66,6 +52,68 @@ export const MeetingsView = ({ meetings, tutors, students, getData, updateData, 
       Cell: ({ value }) => (
         <Boolean has={value} />
       ),
+    },
+    {
+      Header: 'Actions',
+      accessor: '',
+      Cell: ({
+        row: {
+          original: { _id },
+        },
+      }) => {
+        return (
+          <div>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'green',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+              onClick={() => readMeeting(_id)}
+            >
+              View
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'blue',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+              onClick={() => editMeeting(_id)}
+            >
+              Edit
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5, 
+                backgroundColor: 'red',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+              onClick={() => deleteMeetingUi(_id)}
+            >
+              Remove
+            </p>
+          </div>
+        );
+      },
     },
   ];
 

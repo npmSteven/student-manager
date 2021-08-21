@@ -30,6 +30,65 @@ export const TutorsView = ({
       accessor: 'email',
       Cell: ({ value }) => <CopyToClipboard text={value} />,
     },
+    {
+      Header: 'Actions',
+      accessor: '',
+      Cell: ({
+        row: {
+          original: { _id },
+        },
+      }) => {
+        return (
+          <div>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'green',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              View
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'blue',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              Edit
+            </p>
+            <p
+              style={{
+                padding: 5,
+                margin: 0,
+                marginTop: 5,
+                marginBottom: 5,
+                backgroundColor: 'red',
+                textAlign: 'center',
+                borderRadius: 5,
+                color: 'white',
+                cursor: 'pointer',
+              }}
+            >
+              Remove
+            </p>
+          </div>
+        );
+      },
+    },
   ];
   return (
     <div>

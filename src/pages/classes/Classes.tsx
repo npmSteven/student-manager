@@ -32,6 +32,8 @@ export const Classes = (): ReactElement => {
     })();
   }, []);
 
+  const readClass = (id) => history.push(`/classes/read/${id}`);
+
   const editClass = (id) => history.push(`/classes/edit/${id}`);
 
   const deleteClassUi = async (id) => {
@@ -46,7 +48,7 @@ export const Classes = (): ReactElement => {
       }
       setIsLoadingState(false);
     } catch (error) {
-      console.error('ERROR - deleteNoteUi():', error);
+      console.error('ERROR - deleteClassUi():', error);
       setIsLoadingState(false);
     }
   };
@@ -62,6 +64,7 @@ export const Classes = (): ReactElement => {
           params={classesParamsStore}
           updateParams={updateClassesParams}
           deleteClassUi={deleteClassUi}
+          readClass={readClass}
           editClass={editClass}
         />
       }
