@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ReactElement, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { toast } from "react-toastify";
 import { Loader } from "../../../components/loader/Loader";
 import { updateClassTypes } from "../../../redux/slices/classTypesSlice";
 import { updateLocations } from "../../../redux/slices/locationsSlice";
@@ -56,6 +57,7 @@ export const ClassesAdd = (): ReactElement => {
       const newClass = await addClass(newValues);
       setIsLoadingState(false);
       if (newClass.success) {
+        toast.success('Added Class');
         history.push('/classes');
       }
     } catch (error) {

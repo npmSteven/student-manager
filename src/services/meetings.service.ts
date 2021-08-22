@@ -40,9 +40,19 @@ export const addMeeting = async (meeting) => {
   }
 };
 
-export const updateMeeting = async (id, meeting) => {
+export const updateMeeting = async (
+  id,
+  { tutorId, studentId, periodStart, periodEnd, currency }
+) => {
   try {
-    const response = await putApi(`/meetings/${id}`, meeting);
+    const updatedMeeting = {
+      tutorId,
+      studentId,
+      periodStart,
+      periodEnd,
+      currency,
+    };
+    const response = await putApi(`/meetings/${id}`, updatedMeeting);
     return response;
   } catch (error) {
     console.error('ERROR - updateMeeting():', error);

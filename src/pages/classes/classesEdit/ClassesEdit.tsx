@@ -1,6 +1,7 @@
 import moment from "moment";
 import { ReactElement, useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
 import { Loader } from "../../../components/loader/Loader";
 import { updateClassTypes } from "../../../redux/slices/classTypesSlice";
@@ -12,6 +13,8 @@ import { ClassesEditView } from "./ClassesEditView";
 export const ClassesEdit = ({ match }): ReactElement => {
   const { id } = match.params;
   
+  const history = useHistory();
+
   // State
   const [isLoadingState, setIsLoadingState] = useState(true);
   const [classState, setClassState] = useState({});
@@ -65,7 +68,8 @@ export const ClassesEdit = ({ match }): ReactElement => {
       const newClass = await updateClass(id, newValues);
       setIsLoadingState(false);
       if (newClass.success) {
-        toast.success('Updated');
+        history.push('/classes');
+        toast.success('Updated Class');
       }
     } catch (error) {
       console.error('ERROR - ClassesEdit.tsx - onSubmit():', error);
