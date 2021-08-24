@@ -12,7 +12,10 @@ export const getStudents = async (params = {}) => {
 
 export const getStudentsNames = async () => {
   try {
-    const response = await getApi('/students', { select: '_id firstName lastName', limit: 1000 });
+    const response = await getApi('/students', {
+      select: '_id firstName lastName',
+      limit: 1000,
+    });
     return response;
   } catch (error) {
     console.error('ERROR - getStudentsNames():', error);
@@ -22,7 +25,11 @@ export const getStudentsNames = async () => {
 
 export const getStudentsNamesByClass = async (classId) => {
   try {
-    const response = await getApi('/students', { select: '_id firstName lastName', limit: 1000, classId });
+    const response = await getApi('/students', {
+      select: '_id firstName lastName',
+      limit: 1000,
+      classId,
+    });
     return response;
   } catch (error) {
     console.error('ERROR - getStudentsNamesByClass():', error);
@@ -50,9 +57,34 @@ export const getStudent = async (id: string) => {
   }
 };
 
-export const addStudent = async (student) => {
+export const addStudent = async ({
+  tutorId,
+  classId,
+  firstName,
+  middleName,
+  lastName,
+  email,
+  timezone,
+  didWithdraw,
+  didDefer,
+  didSendSlackInvite,
+  didSendIntroEmail,
+}) => {
   try {
-    const response = await postApi('/students', student);
+    const newStudent = {
+      tutorId,
+      classId,
+      firstName,
+      middleName,
+      lastName,
+      email,
+      timezone,
+      didWithdraw,
+      didDefer,
+      didSendSlackInvite,
+      didSendIntroEmail,
+    };
+    const response = await postApi('/students', newStudent);
     return response;
   } catch (error) {
     console.error('ERROR - addStudent():', error);
@@ -60,9 +92,37 @@ export const addStudent = async (student) => {
   }
 };
 
-export const updateStudent = async (id, student) => {
+export const updateStudent = async (
+  id,
+  {
+    tutorId,
+    classId,
+    firstName,
+    middleName,
+    lastName,
+    email,
+    timezone,
+    didWithdraw,
+    didDefer,
+    didSendSlackInvite,
+    didSendIntroEmail,
+  }
+) => {
   try {
-    const response = await putApi(`/students/${id}`, student);
+    const updatedStudent = {
+      tutorId,
+      classId,
+      firstName,
+      middleName,
+      lastName,
+      email,
+      timezone,
+      didWithdraw,
+      didDefer,
+      didSendSlackInvite,
+      didSendIntroEmail,
+    };
+    const response = await putApi(`/students/${id}`, updatedStudent);
     return response;
   } catch (error) {
     console.error('ERROR - updateStudent():', error);

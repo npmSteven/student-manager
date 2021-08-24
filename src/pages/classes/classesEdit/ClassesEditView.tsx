@@ -20,7 +20,7 @@ export const ClassesEditView = ({
       <Link to="/classes">
         <button>Back</button>
       </Link>
-      <Formik initialValues={{ ...foundClass }} onSubmit={onSubmit}>
+      <Formik initialValues={foundClass} onSubmit={onSubmit}>
         {({ values, setFieldValue }) => (
           <Form
             style={{

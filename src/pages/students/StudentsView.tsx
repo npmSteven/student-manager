@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
 import { Boolean } from '../../Pipes/Boolean';
 import { ClassCode } from '../../Pipes/ClassCode';
@@ -124,6 +125,9 @@ export const StudentsView = ({
   return (
     <div>
       <h1>Students</h1>
+      <Link to="/students/add">
+        <button>Add</button>
+      </Link>
       <Table
         data={students}
         columns={columns}
