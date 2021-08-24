@@ -22,7 +22,10 @@ export const getTutors = async (params = {}) => {
 
 export const getTutorsNames = async () => {
   try {
-    const response = await getApi('/tutors', { select: '_id firstName lastName', limit: 1000 });
+    const response = await getApi('/tutors', {
+      select: '_id firstName lastName',
+      limit: 1000,
+    });
     return response;
   } catch (error) {
     console.error('ERROR - getTutorsNames():', error);
@@ -32,7 +35,7 @@ export const getTutorsNames = async () => {
 
 export const getTutorsBulk = async (tutorIds) => {
   try {
-    const response = await getApi('/tutors/bulk', {  ids: tutorIds });
+    const response = await getApi('/tutors/bulk', { ids: tutorIds });
     return response;
   } catch (error) {
     console.error('ERROR - getTutorsBulk():', error);
@@ -50,9 +53,18 @@ export const addTutor = async (tutor) => {
   }
 };
 
-export const updateTutor = async (id, tutor) => {
+export const updateTutor = async (
+  id,
+  { firstName, middleName, lastName, email }
+) => {
   try {
-    const response = await putApi(`/tutors/${id}`, tutor);
+    const updatedTutor = {
+      firstName,
+      middleName,
+      lastName,
+      email,
+    };
+    const response = await putApi(`/tutors/${id}`, updatedTutor);
     return response;
   } catch (error) {
     console.error('ERROR - updateTutor():', error);

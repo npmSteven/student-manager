@@ -1,5 +1,5 @@
-import { Field, Form, Formik } from 'formik';
 import { ReactElement } from 'react';
+import { Field, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 
 export const StudentsAddView = ({
@@ -19,7 +19,6 @@ export const StudentsAddView = ({
           tutorId: '',
           classId: '',
           firstName: '',
-          middleName: '',
           lastName: '',
           email: '',
           timezone: 'Europe/London',

@@ -1,4 +1,5 @@
 import { ReactElement } from 'react';
+import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
 import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 
@@ -99,6 +100,9 @@ export const TutorsView = ({
   return (
     <div>
       <h1>Tutors</h1>
+      <Link to="/tutors/add">
+        <button>Add</button>
+      </Link>
       <Table
         data={tutors}
         columns={columns}
