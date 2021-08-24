@@ -42,7 +42,18 @@ export const addMeeting = async (meeting) => {
 
 export const updateMeeting = async (
   id,
-  { tutorId, studentId, periodStart, periodEnd, currency }
+  {
+    tutorId,
+    studentId,
+    periodStart,
+    periodEnd,
+    currency,
+    didShow,
+    didFillTutorEvaluationSheet,
+    didFillStudentEvaluationSheet,
+    topicsCovered,
+    notes,
+  }
 ) => {
   try {
     const updatedMeeting = {
@@ -51,6 +62,11 @@ export const updateMeeting = async (
       periodStart,
       periodEnd,
       currency,
+      didShow,
+      didFillTutorEvaluationSheet,
+      didFillStudentEvaluationSheet,
+      topicsCovered,
+      notes,
     };
     const response = await putApi(`/meetings/${id}`, updatedMeeting);
     return response;
