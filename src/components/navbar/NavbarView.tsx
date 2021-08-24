@@ -29,9 +29,9 @@ export const NavbarView = (): ReactElement => {
             Student Manager
           </Typography>
           <Button component={Link} to="/meetings" variant="text" className={classes.button}>Meetings</Button>
+          <Button component={Link} to="/students" variant="text" className={classes.button}>Students</Button>
           <Button component={Link} to="/classes" variant="text" className={classes.button}>Classes</Button>
           <Button component={Link} to="/tutors" variant="text" className={classes.button}>Tutors</Button>
-          <Button component={Link} to="/students" variant="text" className={classes.button}>Students</Button>
           <Button component={Link} to="/logout" variant="text" className={classes.button}>Logout</Button>
         </Toolbar>
       </AppBar>
