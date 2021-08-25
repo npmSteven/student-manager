@@ -21,9 +21,8 @@ import { MeetingsRead } from '../pages/meetings/meetingsRead/MeetingsRead';
 import { StudentsEdit } from '../pages/students/studentsEdit/StudentsEdit';
 import { StudentsRead } from '../pages/students/studentsRead/StudentsRead';
 import { StudentsAdd } from '../pages/students/studentsAdd/StudentsAdd';
-import { TutorsEdit } from '../pages/tutors/tutorsEdit/TutorsEdit';
 import { TutorsRead } from '../pages/tutors/tutorsRead/TutorsRead';
-import { TutorsAdd } from '../pages/tutors/tutorsAdd/TutorsAdd';
+import { TutorsAddEdit } from '../pages/tutors/tutorsAddEdit/TutorsAddEdit';
 
 export const Routes = () => {
   return (
@@ -50,9 +49,9 @@ export const Routes = () => {
 
       {/* Tutors */}
       <AuthenticatedRoute exact path="/tutors" component={Tutors} />
-      <AuthenticatedRoute exact path="/tutors/edit/:id" component={TutorsEdit} />
       <AuthenticatedRoute exact path="/tutors/read/:id" component={TutorsRead} />
-      <AuthenticatedRoute exact path="/tutors/add" component={TutorsAdd} />
+      <AuthenticatedRoute exact path="/tutors/add" component={TutorsAddEdit} />
+      <AuthenticatedRoute exact path="/tutors/edit/:id" component={TutorsAddEdit} />
 
       <AuthenticatedRoute exact path="/settings" component={Settings} />
       
