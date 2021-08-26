@@ -5,6 +5,7 @@ import { Boolean } from '../../Pipes/Boolean';
 import { CopyToClipboard } from '../../Pipes/CopyToClipboard';
 import { StudentName } from '../../Pipes/StudentName';
 import { TutorName } from '../../Pipes/TutorName';
+import { downloadMeetingsExcel } from '../../services/meetings.service';
 import { timestampToDate } from '../../services/time.service';
 
 export const MeetingsView = ({ meetings, tutors, students, deleteMeetingUi, readMeeting, editMeeting, getData, updateData, params, updateParams }): ReactElement => {
@@ -124,6 +125,7 @@ export const MeetingsView = ({ meetings, tutors, students, deleteMeetingUi, read
       <Link to="/meetings/add">
         <button>Add</button>
       </Link>
+      <button onClick={() => downloadMeetingsExcel({ periodStart: 0, periodEnd: 1000, classIds: '6127f79b33fae4425b0a134d' })}>Download</button>
       <Table data={meetings} columns={columns} getData={getData} updateData={updateData} params={params} updateParams={updateParams} />
     </div>
   );

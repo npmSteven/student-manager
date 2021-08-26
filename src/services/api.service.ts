@@ -4,6 +4,10 @@ import { getJwt } from './authentication.service';
 const apiRoot = 'https://student-manager-api.herokuapp.com/api/v1';
 // const apiRoot = 'http://localhost:8080/api/v1';
 
+export const getApiRoot = () => {
+  return apiRoot;
+}
+
 const getAuthHeaders = () => {
   const headers = new Headers();
   headers.append('Authorization', `Bearer ${getJwt()}`);

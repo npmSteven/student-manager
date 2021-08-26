@@ -1,4 +1,5 @@
-import { deleteApi, getApi, postApi, putApi } from './api.service';
+import { deleteApi, getApi, getApiRoot, postApi, putApi } from './api.service';
+import { getJwt } from './authentication.service';
 
 export const getMeetings = async (params = {}) => {
   try {
@@ -82,6 +83,17 @@ export const deleteMeeting = async (id) => {
     return response;
   } catch (error) {
     console.error('ERROR - deleteMeeting():', error);
+    throw error;
+  }
+};
+
+export const downloadMeetingsExcel = async (params) => {
+  try {
+    const url: any = new URL(`${getApiRoot()}/meetings/excel`);
+    url.search = new URLSearchParams({...params, access_token: getJwt()}).toString();
+    window.open(url);
+  } catch (error) {
+    console.error('ERROR - downloadMeetingsExcel():', error);
     throw error;
   }
 };
