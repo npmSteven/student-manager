@@ -12,7 +12,7 @@ import { StudentsAddEditView } from "./StudentsAddEditView";
 
 export const StudentsAddEdit = ({ match }): ReactElement => {
   const { id } = match.params;
-  const isEdit = !!id;
+  const isEdit: boolean = !!id;
 
   const history = useHistory();
 
@@ -73,11 +73,9 @@ export const StudentsAddEdit = ({ match }): ReactElement => {
     })();
   }, []);
 
-  async function addEditStudent(id: any, values: any) {
-    let newStudent;
-    if (isEdit) newStudent = await updateStudent(id, values);
-    else newStudent = await addStudent(values);
-    return newStudent;
+  const addEditStudent = async (id: any, values: any) => {
+    if (isEdit) return await updateStudent(id, values);
+    else return await addStudent(values);
   }
 
   const onSubmit = async (values) => {

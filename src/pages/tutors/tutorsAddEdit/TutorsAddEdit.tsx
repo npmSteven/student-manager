@@ -7,7 +7,7 @@ import { TutorsAddEditView } from "./TutorsAddEditView";
 
 export const TutorsAddEdit = ({ match }): ReactElement => {
   const { id } = match.params;
-  const isEdit = !!id;
+  const isEdit: boolean = !!id;
   
   const history = useHistory();
 
@@ -35,11 +35,9 @@ export const TutorsAddEdit = ({ match }): ReactElement => {
     })();
   }, []);
 
-  async function addEditTutor(id: any, values: any) {
-    let newTutor;
-    if (isEdit) newTutor = await updateTutor(id, values);
-    else newTutor = await addTutor(values);
-    return newTutor;
+  const addEditTutor = async (id: any, values: any) => {
+    if (isEdit) return await updateTutor(id, values);
+    else return await addTutor(values);
   }
 
   const onSubmit = async (values) => {
