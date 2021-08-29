@@ -12,8 +12,6 @@ import { Settings } from '../pages/settings/Settings';
 import { Students } from '../pages/students/Students';
 import { Tutors } from '../pages/tutors/Tutors';
 import { Logout } from '../pages/logout/Logout';
-import { ClassesEdit } from '../pages/classes/classesEdit/ClassesEdit';
-import { ClassesAdd } from '../pages/classes/classesAdd/ClassesAdd';
 import { ClassesRead } from '../pages/classes/classesRead/ClassesRead';
 import { MeetingsRead } from '../pages/meetings/meetingsRead/MeetingsRead';
 import { StudentsRead } from '../pages/students/studentsRead/StudentsRead';
@@ -21,6 +19,7 @@ import { TutorsRead } from '../pages/tutors/tutorsRead/TutorsRead';
 import { TutorsAddEdit } from '../pages/tutors/tutorsAddEdit/TutorsAddEdit';
 import { StudentsAddEdit } from '../pages/students/studentsAddEdit/StudentsAddEdit';
 import { MeetingsAddEdit } from '../pages/meetings/meetingsAddEdit/MeetingsAddEdit';
+import { ClassesAddEdit } from '../pages/classes/classesAddEdit/ClassesAddEdit';
 
 export const Routes = () => {
   return (
@@ -29,9 +28,9 @@ export const Routes = () => {
       <NotAuthenticatedRoute exact path="/signUp" component={SignUp} />
       {/* Classes */}
       <AuthenticatedRoute exact path="/classes" component={Classes} />
-      <AuthenticatedRoute exact path="/classes/edit/:id" component={ClassesEdit} />
       <AuthenticatedRoute exact path="/classes/read/:id" component={ClassesRead} />
-      <AuthenticatedRoute exact path="/classes/add" component={ClassesAdd} />
+      <AuthenticatedRoute exact path="/classes/add" component={ClassesAddEdit} />
+      <AuthenticatedRoute exact path="/classes/edit/:id" component={ClassesAddEdit} />
 
       {/* Meetings */}
       <AuthenticatedRoute exact path="/meetings" component={Meetings} />
