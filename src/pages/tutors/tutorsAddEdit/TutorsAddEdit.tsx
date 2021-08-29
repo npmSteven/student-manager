@@ -36,8 +36,8 @@ export const TutorsAddEdit = ({ match }): ReactElement => {
   }, []);
 
   const addEditTutor = async (id: any, values: any) => {
-    if (isEdit) return await updateTutor(id, values);
-    else return await addTutor(values);
+    if (isEdit) return updateTutor(id, values);
+    else return addTutor(values);
   }
 
   const onSubmit = async (values) => {

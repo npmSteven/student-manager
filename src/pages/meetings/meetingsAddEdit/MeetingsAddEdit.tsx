@@ -69,8 +69,8 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
   }, []);
 
   const addEditMeeting = async (id: string, values: any) => {
-    if (isEdit) return await updateMeeting(id, values);
-    else return await addMeeting(values);
+    if (isEdit) return updateMeeting(id, values);
+    else return addMeeting(values);
   }
 
   const onSubmit = async (values) => {
@@ -82,8 +82,6 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
       newValues.periodStart = newValues.periodStart.unix();
       newValues.periodEnd = newValues.periodEnd.unix();
 
-      console.log(newValues);
-      
       const newMeeting = await addEditMeeting(id, newValues);
       setIsLoadingState(false);
       if (newMeeting.success) {

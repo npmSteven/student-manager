@@ -74,8 +74,8 @@ export const StudentsAddEdit = ({ match }): ReactElement => {
   }, []);
 
   const addEditStudent = async (id: any, values: any) => {
-    if (isEdit) return await updateStudent(id, values);
-    else return await addStudent(values);
+    if (isEdit) return updateStudent(id, values);
+    else return addStudent(values);
   }
 
   const onSubmit = async (values) => {
