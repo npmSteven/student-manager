@@ -2,13 +2,13 @@ import { ReactElement } from 'react';
 import { Field, Form, Formik } from 'formik';
 import { Link } from 'react-router-dom';
 
-export const TutorsEditView = ({
+export const TutorsAddEditView = ({
   tutor,
-  onSubmit,
+  onSubmit
 }): ReactElement => {
   return (
-    <div>
-      <h1>Tutors Edit</h1>
+    <div >
+      <h1>Tutors Add</h1>
       <Link to="/tutors">
         <button>Back</button>
       </Link>

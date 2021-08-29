@@ -2,7 +2,7 @@ import { Field, Form, Formik } from 'formik';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 
-export const StudentsEditView = ({
+export const StudentsAddEditView = ({
   student,
   timezones,
   tutors,

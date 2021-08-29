@@ -4,33 +4,20 @@ import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import Datetime from 'react-datetime';
 
-export const MeetingsAddView = ({
+export const MeetingsAddEditView = ({
   onSubmit,
   tutorNames,
   studentNames,
   currencies,
+  meeting,
 }): ReactElement => {
   return (
     <div>
-      <h1>Meetings Add</h1>
+      <h1>Meetings Edit</h1>
       <Link to="/meetings">
         <button>Back</button>
       </Link>
-      <Formik
-        initialValues={{
-          tutorId: '',
-          studentId: '',
-          periodStart: moment(new Date()),
-          periodEnd: moment(new Date()).add(50, 'minutes'),
-          currency: 'GBP',
-          didShow: false,
-          didFillTutorEvaluationSheet: false,
-          didFillStudentEvaluationSheet: false,
-          topicsCovered: '',
-          notes: '',
-        }}
-        onSubmit={onSubmit}
-      >
+      <Formik initialValues={meeting} onSubmit={onSubmit}>
         {({ values, setFieldValue }) => (
           <Form
             style={{
