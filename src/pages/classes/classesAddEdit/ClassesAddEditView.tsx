@@ -43,21 +43,6 @@ export const ClassesAddEditView = ({
   onSubmit,
 }): ReactElement => {
   const classes = useStyles();
-  const [periodStart, handlePeriodStartChange] = React.useState(new Date());
-  const [periodEnd, handlePeriodEndChange] = React.useState(new Date());
-  const [location, setLocation] = React.useState('');
-  const [classType, setClassType] = React.useState('');
-  // const [university, setUniversity] = React.useState('');
-
-  const handleLocationChange = (event) => {
-    setLocation(event.target.value);
-  };
-  const handleClassTypeChange = (event) => {
-    setClassType(event.target.value);
-  };
-  // const handleUniversityChange = (event) => {
-  //   setUniversity(event.target.value);
-  // };
 
   return (
     <div
@@ -66,7 +51,16 @@ export const ClassesAddEditView = ({
       }}
     >
       <h1>Classes {isEdit ? 'Edit' : 'Add'}</h1>
-
+      <Link to="/classes" style={{ textDecoration: 'none' }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<Undo />}
+        >
+          Back
+        </Button>
+      </Link>
       <MuiPickersUtilsProvider utils={LuxonUtils}>
         <Formik
           className={classes.root}
@@ -75,15 +69,6 @@ export const ClassesAddEditView = ({
           {({ values, setFieldValue }) => (
             <Form className={classes.form}
             >
-              <Button
-                href="/classes"
-                variant="contained"
-                color="secondary"
-                className={classes.button}
-                startIcon={<Undo />}
-              >
-                Back
-              </Button>
 
               <Field
                 component={TextField}
@@ -95,20 +80,22 @@ export const ClassesAddEditView = ({
               />
               <DateTimePicker
                 ampm={false}
+                format="dd/MM/yyyy HH:mm"
                 label="Period Start"
                 inputVariant="outlined"
                 name="periodStart"
-                value={periodStart}
-                onChange={handlePeriodStartChange}
+                value={values.periodStart}
+                onChange={ (e) => setFieldValue("periodStart", e) }
                 className={classes.formControl}
               />
               <DateTimePicker
                 ampm={false}
+                format="dd/MM/yyyy HH:mm"
                 label="Period End"
                 inputVariant="outlined"
                 name="periodEnd"
-                value={periodEnd}
-                onChange={handlePeriodEndChange}
+                value={values.periodEnd}
+                onChange={ (e) => setFieldValue("periodEnd", e) }
                 className={classes.formControl}
               />
 
@@ -118,8 +105,8 @@ export const ClassesAddEditView = ({
                   labelId="class-type-label"
                   label="Location"
                   name="location"
-                  value={location}
-                  onChange={handleLocationChange}
+                  value={values.location}
+                  onChange={ (e) => setFieldValue("location", e.target.value) }
                 >
                   {locations.map((c) => (
                     <MenuItem value={c} key={c}>{c}</MenuItem>
@@ -133,8 +120,10 @@ export const ClassesAddEditView = ({
                   labelId="class-type-label"
                   label="Class Type"
                   name="classType"
-                  value={classType}
-                  onChange={handleClassTypeChange}
+                  value={values.classType}
+                  onChange={ (e) => { 
+                    return setFieldValue("classType", e.target.value) 
+                  }}
                 >
                   {classTypes.map((c) => (
                     <MenuItem value={c} key={c}>{c}</MenuItem>
@@ -146,8 +135,6 @@ export const ClassesAddEditView = ({
                 component={TextField}
                 name="university"
                 label="University"
-                // value={university}
-                // onChange={handleUniversityChange}
                 variant="outlined"
                 className={classes.formControl}
               />
@@ -157,7 +144,7 @@ export const ClassesAddEditView = ({
                 variant="contained"
                 color="primary"
                 className={classes.button}
-                endIcon={<Save />}
+                startIcon={<Save />}
               >
                 Save
               </Button>

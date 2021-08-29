@@ -1,5 +1,6 @@
 import moment from "moment";
 import { ReactElement, useState, useEffect } from "react";
+import { DateTime } from "luxon";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,8 +21,8 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
   const [isLoadingState, setIsLoadingState] = useState(true);
   const [classState, setClassState] = useState({
     classCode: '',
-    periodStart: moment(new Date()),
-    periodEnd: moment(new Date()).add(6, 'months'),
+    periodStart: DateTime.local(),
+    periodEnd: DateTime.local().plus({months:6}),
     classType: '',
     location: '',
     university: '',
@@ -50,8 +51,9 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
         if (isEdit && foundClass.success) {
           // Update period start and end to normal date format
           const updatedFoundClass = { ...foundClass.payload };
-          updatedFoundClass.periodStart = moment.unix(updatedFoundClass.periodStart);
-          updatedFoundClass.periodEnd = moment.unix(updatedFoundClass.periodEnd);
+          //Convert from unix to luxon DateTime
+          updatedFoundClass.periodStart = DateTime.fromSeconds(updatedFoundClass.periodStart);
+          updatedFoundClass.periodEnd = DateTime.fromSeconds(updatedFoundClass.periodEnd);
           setClassState(updatedFoundClass);
         }
         setIsLoadingState(false);
@@ -69,8 +71,6 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
 
   const onSubmit = async (values) => {
     try {
-      console.log("FORM VALUE PROPS: ", values);
-      
       if (
         !values.periodStart ||
         !values.periodEnd
@@ -78,8 +78,8 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
       setIsLoadingState(true);
       // Convert periodStart and periodEnd to timestamps
       const newValues = { ...values };
-      newValues.periodStart = newValues.periodStart.unix();
-      newValues.periodEnd = newValues.periodEnd.unix();
+      newValues.periodStart = newValues.periodStart.toSeconds();
+      newValues.periodEnd = newValues.periodEnd.toSeconds();
 
       const newClass = await addEditClass(id, newValues);
       setIsLoadingState(false);
@@ -97,7 +97,13 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
     <Loader
       isLoading={isLoadingState}
       component={
-        <ClassesAddEditView isEdit={isEdit} locations={locationsStore} classTypes={classTypesStore} foundClass={classState} onSubmit={onSubmit} />
+        <ClassesAddEditView
+          isEdit={isEdit}
+          locations={locationsStore}
+          classTypes={classTypesStore}
+          foundClass={classState}
+          onSubmit={onSubmit}
+        />
       }
     />
   );
