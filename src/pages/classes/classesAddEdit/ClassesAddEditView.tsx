@@ -1,10 +1,9 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
-import moment from 'moment';
 import Datetime from 'react-datetime';
 
-export const ClassesEditView = ({
+export const ClassesAddEditView = ({
   locations,
   classTypes,
   foundClass,

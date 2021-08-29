@@ -8,11 +8,11 @@ import { getClassesClassCode } from "../../../services/classes.service";
 import { getTimezones } from "../../../services/selects.service";
 import { addStudent, getStudent, updateStudent } from "../../../services/students.service";
 import { getTutorsNames } from "../../../services/tutors.service";
+import { StudentsAddEditView } from "./StudentsAddEditView";
 
-import { StudentsEditView } from "./StudentsEditView";
-
-export const StudentsEdit = ({ match }): ReactElement => {
+export const StudentsAddEdit = ({ match }): ReactElement => {
   const { id } = match.params;
+  const isEdit: boolean = !!id;
 
   const history = useHistory();
 
@@ -20,7 +20,18 @@ export const StudentsEdit = ({ match }): ReactElement => {
   const [isLoadingState, setIsLoadingState] = useState(true);
   const [classCodesState, setClassCodesState] = useState([]);
   const [tutorNamesState, setTutorNamesState] = useState([]);
-  const [studentState, setStudentState] = useState({});
+  const [studentState, setStudentState] = useState({
+    tutorId: '',
+    classId: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    timezone: 'Europe/London',
+    didWithdraw: false,
+    didDefer: false,
+    didSendSlackInvite: false,
+    didSendIntroEmail: false,
+  });
 
   // Redux
   const dispatch = useDispatch();
@@ -29,13 +40,15 @@ export const StudentsEdit = ({ match }): ReactElement => {
   useEffect(() => {
     (async () => {
       try {
-        const [classCodes, tutorNames, timezones, student] = await Promise.all([
+        const promiseArr = [
           getClassesClassCode(),
           getTutorsNames(),
           getTimezones(),
-          getStudent(id),
-        ]);
-        
+        ];
+        if (isEdit){
+          promiseArr.push(getStudent(id));
+        }
+        const [classCodes, tutorNames, timezones, student] = await Promise.all(promiseArr);
         if (classCodes.success) {
           setClassCodesState(classCodes.payload.docs);
         }
@@ -48,30 +61,35 @@ export const StudentsEdit = ({ match }): ReactElement => {
           dispatch(updateTimezones(timezones.payload));
         }
         
-        if (student.success) {
+        if (isEdit && student.success) {
           setStudentState(student.payload);
         }
 
         setIsLoadingState(false);
       } catch (error) {
-        console.error('ERROR - StudentsEdit.tsx - useEffect():', error);
+        console.error('ERROR - StudentsAddEdit.tsx - useEffect():', error);
         setIsLoadingState(false);
       }
     })();
   }, []);
 
+  const addEditStudent = async (id: any, values: any) => {
+    if (isEdit) return updateStudent(id, values);
+    else return addStudent(values);
+  }
+
   const onSubmit = async (values) => {
     try {
       setIsLoadingState(true);
 
-      const updatedStudent = await updateStudent(id, values);
+      const newStudent = await addEditStudent(id, values);
       setIsLoadingState(false);
-      if (updatedStudent.success) {
+      if (newStudent.success) {
         history.push('/students');
-        toast.success('Updated Student');
+        toast.success(isEdit ? 'Updated Student' : 'Added Student');
       }
     } catch (error) {
-      console.error('ERROR - StudentsEdit.tsx - onSubmit():', error);
+      console.error('ERROR - StudentsAddEdit.tsx - onSubmit():', error);
       setIsLoadingState(false);
     }
   }
@@ -80,7 +98,7 @@ export const StudentsEdit = ({ match }): ReactElement => {
     <Loader
       isLoading={isLoadingState}
       component={
-        <StudentsEditView
+        <StudentsAddEditView
           student={studentState}
           timezones={timezonesStore}
           tutors={tutorNamesState}
