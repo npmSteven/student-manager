@@ -16,7 +16,7 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
   const history = useHistory();
 
   // State
-  const [isLoadingState, setIsLoadingState] = useState(isEdit);
+  const [isLoadingState, setIsLoadingState] = useState(true);
   const [studentNamesState, setStudentNamesState] = useState([]);
   const [tutorNamesState, setTutorNamesState] = useState([]);
   const [currenciesState, setCurrenciesState] = useState([]);

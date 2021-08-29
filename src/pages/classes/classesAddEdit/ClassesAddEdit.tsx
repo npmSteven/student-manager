@@ -17,7 +17,7 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
   const history = useHistory();
 
   // State
-  const [isLoadingState, setIsLoadingState] = useState(isEdit);
+  const [isLoadingState, setIsLoadingState] = useState(true);
   const [classState, setClassState] = useState({
     classCode: '',
     periodStart: moment(new Date()),
