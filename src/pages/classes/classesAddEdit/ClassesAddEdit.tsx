@@ -69,6 +69,8 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
 
   const onSubmit = async (values) => {
     try {
+      console.log("FORM VALUE PROPS: ", values);
+      
       if (
         !values.periodStart ||
         !values.periodEnd
@@ -95,7 +97,7 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
     <Loader
       isLoading={isLoadingState}
       component={
-        <ClassesAddEditView locations={locationsStore} classTypes={classTypesStore} foundClass={classState} onSubmit={onSubmit} />
+        <ClassesAddEditView isEdit={isEdit} locations={locationsStore} classTypes={classTypesStore} foundClass={classState} onSubmit={onSubmit} />
       }
     />
   );
