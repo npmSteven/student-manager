@@ -19,7 +19,7 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
   // State
   const [isLoadingState, setIsLoadingState] = useState(true);
   const [studentNamesState, setStudentNamesState] = useState([]);
-  const [tutorNamesState, setTutorNamesState] = useState([]);
+  const [tutorsState, setTutorsState] = useState([]);
   const [currenciesState, setCurrenciesState] = useState([]);
   const [meetingState, setMeetingState] = useState({
     tutorId: '',
@@ -43,10 +43,10 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
           getCurrencies(),
         ];
         if(isEdit) promisesArr.push(getMeeting(id));
-        const [tutorNames, studentsNames, currencies, meeting] =
+        const [tutors, studentsNames, currencies, meeting] =
           await Promise.all(promisesArr);
-        if (tutorNames.success) {
-          setTutorNamesState(tutorNames.payload.docs);
+        if (tutors.success) {
+          setTutorsState(tutors.payload.docs);
         }
         if (studentsNames.success) {
           setStudentNamesState(studentsNames.payload.docs);
@@ -102,7 +102,7 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
         <MeetingsAddEditView
           isEdit={isEdit}
           meeting={meetingState}
-          tutorNames={tutorNamesState}
+          tutors={tutorsState}
           studentNames={studentNamesState}
           currencies={currenciesState}
           onSubmit={onSubmit}

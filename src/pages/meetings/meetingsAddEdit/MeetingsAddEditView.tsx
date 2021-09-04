@@ -1,12 +1,9 @@
 import { Field, Form, Formik } from 'formik';
-import moment from 'moment';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import Datetime from 'react-datetime';
 import LuxonUtils from '@date-io/luxon';
 import { Button, Checkbox, createStyles, FormControl, FormControlLabel, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
-import React from 'react';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Save, Undo } from '@material-ui/icons';
 
@@ -39,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
 export const MeetingsAddEditView = ({
   isEdit,
   onSubmit,
-  tutorNames,
+  tutors,
   studentNames,
   currencies,
   meeting,
@@ -47,7 +44,11 @@ export const MeetingsAddEditView = ({
   const classes = useStyles();
 
   return (
-    <div>
+    <div
+      style={{
+        padding: 10,
+      }}
+    >
       <h1>Meetings {isEdit ? 'Edit' : 'Add'}</h1>
       <Link to="/meetings" style={{ textDecoration: 'none' }}>
         <Button
@@ -78,7 +79,7 @@ export const MeetingsAddEditView = ({
                     setFieldValue("tutorId", e.target.value)
                   )}
                 >
-                  {tutorNames.map((c) => (
+                  {tutors.map((c) => (
                     <MenuItem value={c._id} key={c._id}>{c.firstName} {c.lastName}</MenuItem>
                   ))}
                 </Select>
@@ -196,17 +197,15 @@ export const MeetingsAddEditView = ({
                 name="topicsCovered"
                 label="Topics Covered"
                 multiline
-                required
                 variant="outlined"
                 className={classes.formControl}
               />
-              
+
               <Field
                 component={TextField}
                 name="notes"
                 label="Notes"
                 multiline
-                required
                 variant="outlined"
                 className={classes.formControl}
               />
