@@ -85,7 +85,9 @@ export const ClassesAddEditView = ({
                 inputVariant="outlined"
                 name="periodStart"
                 value={values.periodStart}
-                onChange={ (e) => setFieldValue("periodStart", e) }
+                onChange={(e) => (
+                  setFieldValue("periodStart", e)
+                )}
                 className={classes.formControl}
               />
               <DateTimePicker
@@ -95,7 +97,9 @@ export const ClassesAddEditView = ({
                 inputVariant="outlined"
                 name="periodEnd"
                 value={values.periodEnd}
-                onChange={ (e) => setFieldValue("periodEnd", e) }
+                onChange={(e) => (
+                  setFieldValue("periodEnd", e)
+                )}
                 className={classes.formControl}
               />
 
@@ -106,7 +110,9 @@ export const ClassesAddEditView = ({
                   label="Location"
                   name="location"
                   value={values.location}
-                  onChange={ (e) => setFieldValue("location", e.target.value) }
+                  onChange={(e) => (
+                    setFieldValue("location", e.target.value)
+                  )}
                 >
                   {locations.map((c) => (
                     <MenuItem value={c} key={c}>{c}</MenuItem>
@@ -121,9 +127,9 @@ export const ClassesAddEditView = ({
                   label="Class Type"
                   name="classType"
                   value={values.classType}
-                  onChange={ (e) => { 
-                    return setFieldValue("classType", e.target.value) 
-                  }}
+                  onChange={(e) => (
+                    setFieldValue("classType", e.target.value)
+                  )}
                 >
                   {classTypes.map((c) => (
                     <MenuItem value={c} key={c}>{c}</MenuItem>
