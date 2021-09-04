@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { ReactElement, useEffect, useState } from 'react';
+import { DateTime } from "luxon";
 import { useHistory } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Loader } from '../../../components/loader/Loader';
@@ -23,8 +24,8 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
   const [meetingState, setMeetingState] = useState({
     tutorId: '',
     studentId: '',
-    periodStart: moment(new Date()),
-    periodEnd: moment(new Date()).add(50, 'minutes'),
+    periodStart: DateTime.local(),
+    periodEnd: DateTime.local().plus({minutes:50}),
     currency: 'GBP',
     didShow: false,
     didFillTutorEvaluationSheet: false,
@@ -56,8 +57,8 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
         if (isEdit && meeting.success) {
           // Update period start and end to normal date format
           const updatedMeeting = {...meeting.payload};
-          updatedMeeting.periodStart = moment.unix(updatedMeeting.periodStart);
-          updatedMeeting.periodEnd = moment.unix(updatedMeeting.periodEnd);
+          updatedMeeting.periodStart = DateTime.fromSeconds(updatedMeeting.periodStart);
+          updatedMeeting.periodEnd = DateTime.fromSeconds(updatedMeeting.periodEnd);
           setMeetingState(updatedMeeting);
         }
         setIsLoadingState(false);
@@ -79,8 +80,8 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
       setIsLoadingState(true);
       // Convert periodStart and periodEnd to timestamps
       const newValues = { ...values };
-      newValues.periodStart = newValues.periodStart.unix();
-      newValues.periodEnd = newValues.periodEnd.unix();
+      newValues.periodStart = newValues.periodStart.toSeconds();
+      newValues.periodEnd = newValues.periodEnd.toSeconds();
 
       const newMeeting = await addEditMeeting(id, newValues);
       setIsLoadingState(false);
@@ -99,6 +100,7 @@ export const MeetingsAddEdit = ({ match }): ReactElement => {
       isLoading={isLoadingState}
       component={
         <MeetingsAddEditView
+          isEdit={isEdit}
           meeting={meetingState}
           tutorNames={tutorNamesState}
           studentNames={studentNamesState}
