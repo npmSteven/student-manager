@@ -1,4 +1,6 @@
 import { ReactElement } from 'react';
+import { Button } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
 import { Boolean } from '../../Pipes/Boolean';
@@ -101,7 +103,7 @@ export const MeetingsView = ({ meetings, tutors, students, deleteMeetingUi, read
                 padding: 5,
                 margin: 0,
                 marginTop: 5,
-                marginBottom: 5, 
+                marginBottom: 5,
                 backgroundColor: 'red',
                 textAlign: 'center',
                 borderRadius: 5,
@@ -120,10 +122,20 @@ export const MeetingsView = ({ meetings, tutors, students, deleteMeetingUi, read
 
   return (
     <div>
-      <h1>Meetings</h1>
-      <Link to="/meetings/add">
-        <button>Add</button>
-      </Link>
+      <div style={{
+        paddingLeft: 24
+      }}>
+        <h1>Meetings</h1>
+        <Link to="/meetings/add" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<Add />}
+          >
+            Add
+          </Button>
+        </Link>
+      </div>
       <Table data={meetings} columns={columns} getData={getData} updateData={updateData} params={params} updateParams={updateParams} />
     </div>
   );
