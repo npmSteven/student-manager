@@ -99,6 +99,7 @@ export const StudentsAddEdit = ({ match }): ReactElement => {
       isLoading={isLoadingState}
       component={
         <StudentsAddEditView
+          isEdit={isEdit}
           student={studentState}
           timezones={timezonesStore}
           tutors={tutorNamesState}
