@@ -10,13 +10,6 @@ export const TableView = ({ table, data, handlePageChange, changeLimit, limit })
 
   return (
     <div>
-{/*       <select onChange={(event) => changeLimit(event.target.value)} value={limit}>
-        <option value="5">5</option>
-        <option value="10">10</option>
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-      </select> */}
       <MaUTable {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup) => (
@@ -46,19 +39,15 @@ export const TableView = ({ table, data, handlePageChange, changeLimit, limit })
           })}
         </TableBody>
         <TableFooter>
-          {/*           <p>Limit: {data?.limit}</p>
-          <button disabled={!data?.hasNextPage} onClick={nextPage}>Next</button>
-          <p>Current Page: {data?.page}</p>
-          <button disabled={!data?.hasPrevPage} onClick={prevPage}>Prev</button> */}
-
           <TableRow>
             <TablePagination
               style={{
-                overflow: "visible"
+                overflow: "visible",
+                display: "flex"
               }}
               component="div"
               count={data.totalDocs}
-              page={data.page - 1}//PAGES DONT START AT 1
+              page={data.page - 1}//Material UI thinks pages start at 0
               onPageChange={handlePageChange}
               rowsPerPage={limit}
               onRowsPerPageChange={changeLimit}
