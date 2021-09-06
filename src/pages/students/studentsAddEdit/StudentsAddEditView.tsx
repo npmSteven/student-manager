@@ -1,145 +1,230 @@
 import { Field, Form, Formik } from 'formik';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
+import { Button, Checkbox, createStyles, FormControl, FormControlLabel, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
+import { TextField } from 'formik-material-ui';
+import { Save, Undo } from '@material-ui/icons';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: '500px'
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  }),
+);
 
 export const StudentsAddEditView = ({
+  isEdit,
   student,
   timezones,
   tutors,
   classCodes,
   onSubmit,
 }): ReactElement => {
+  const classes = useStyles();
+
   return (
-    <div>
-      <h1>Students Edit</h1>
-      <Link to="/students">
-        <button>Back</button>
+    <div
+      style={{
+        padding: 10,
+      }}
+    >
+      <h1>Students {isEdit ? 'Edit' : 'Add'}</h1>
+      <Link to="/students" style={{ textDecoration: 'none' }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<Undo />}
+        >
+          Back
+        </Button>
       </Link>
       <Formik
+        className={classes.root}
         initialValues={student}
         onSubmit={onSubmit}
       >
         {({ values, setFieldValue }) => (
-          <Form
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <label>
-              Tutor:
-              <Field name="tutorId" as="select">
-                <option value="None selected">None selected</option>
+          <Form className={classes.form}>
+
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="class-type-label">Tutor</InputLabel>
+              <Select
+                labelId="class-type-label"
+                label="tutorId"
+                name="tutorId"
+                value={values.tutorId}
+                onChange={(e) => (
+                  setFieldValue("tutorId", e.target.value)
+                )}
+              >
                 {tutors.map(({ _id, firstName, lastName }) => (
-                  <option value={_id} key={_id}>
-                    {firstName} {lastName}
-                  </option>
+                  <MenuItem value={_id} key={_id}>{firstName} {lastName}</MenuItem>
                 ))}
-              </Field>
-            </label>
-            <label>
-              Class:
-              <Field name="classId" as="select">
-                <option value="None selected">None selected</option>
+              </Select>
+            </FormControl>
+
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="class-type-label">Class</InputLabel>
+              <Select
+                labelId="class-type-label"
+                label="classId"
+                name="classId"
+                value={values.classId}
+                onChange={(e) => (
+                  setFieldValue("classId", e.target.value)
+                )}
+              >
                 {classCodes.map(({ _id, classCode }) => (
-                  <option value={_id} key={_id}>
-                    {classCode}
-                  </option>
+                  <MenuItem value={_id} key={_id}>{classCode}</MenuItem>
                 ))}
-              </Field>
-            </label>
-            <label>
-              Timezone:
-              <Field name="timezone" as="select">
-                <option value="None selected">None selected</option>
+              </Select>
+            </FormControl>
+
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="class-type-label">Timezone</InputLabel>
+              <Select
+                labelId="class-type-label"
+                label="timezone"
+                name="timezone"
+                value={values.timezone}
+                onChange={(e) => (
+                  setFieldValue("timezone", e.target.value)
+                )}
+              >
                 {timezones.map((t) => (
-                  <option value={t} key={t}>
-                    {t}
-                  </option>
+                  <MenuItem value={t} key={t}>{t}</MenuItem>
                 ))}
-              </Field>
-            </label>
-            <label>
-              First Name:
-              <Field name="firstName" />
-            </label>
-            <label>
-              Middle Name:
-              <Field name="middleName" />
-            </label>
-            <label>
-              Last Name:
-              <Field name="lastName" />
-            </label>
-            <label>
-              Email:
-              <Field name="email" />
-            </label>
-            <label>
-              Withdraw:
-              <Field
-                name="didWithdraw"
-                render={() => (
-                  <input
-                    type="checkbox"
+              </Select>
+            </FormControl>
+
+            <Field
+              component={TextField}
+              name="firstName"
+              label="First Name"
+              required
+              variant="outlined"
+              className={classes.formControl}
+            />
+
+            <Field
+              component={TextField}
+              name="middleName"
+              label="Middle Name"
+              variant="outlined"
+              className={classes.formControl}
+            />
+
+            <Field
+              component={TextField}
+              name="lastName"
+              label="Last Name"
+              required
+              variant="outlined"
+              className={classes.formControl}
+            />
+
+            <Field
+              component={TextField}
+              name="email"
+              label="Email"
+              required
+              variant="outlined"
+              className={classes.formControl}
+            />
+
+            <FormControl className={classes.formControl}>
+              <FormControlLabel
+                control={
+                  <Checkbox
                     checked={values.didWithdraw}
-                    onChange={() =>
+                    onChange={() => (
                       setFieldValue('didWithdraw', !values.didWithdraw)
-                    }
+                    )}
+                    name="didWithdraw"
+                    color="primary"
                   />
-                )}
+                }
+                label="Withdraw"
               />
-            </label>
-            <label>
-              Defer:
-              <Field
-                name="didDefer"
-                render={() => (
-                  <input
-                    type="checkbox"
+            </FormControl>
+
+            <FormControl className={classes.formControl}>
+              <FormControlLabel
+                control={
+                  <Checkbox
                     checked={values.didDefer}
-                    onChange={() => setFieldValue('didDefer', !values.didDefer)}
+                    onChange={() => (
+                      setFieldValue('didDefer', !values.didDefer)
+                    )}
+                    name="didDefer"
+                    color="primary"
                   />
-                )}
+                }
+                label="Defer"
               />
-            </label>
-            <label>
-              Slack Invite:
-              <Field
-                name="didSendSlackInvite"
-                render={() => (
-                  <input
-                    type="checkbox"
+            </FormControl>
+
+            <FormControl className={classes.formControl}>
+              <FormControlLabel
+                control={
+                  <Checkbox
                     checked={values.didSendSlackInvite}
-                    onChange={() =>
-                      setFieldValue(
-                        'didSendSlackInvite',
-                        !values.didSendSlackInvite
-                      )
-                    }
+                    onChange={() => (
+                      setFieldValue('didSendSlackInvite', !values.didSendSlackInvite)
+                    )}
+                    name="didSendSlackInvite"
+                    color="primary"
                   />
-                )}
+                }
+                label="Slack Invite"
               />
-            </label>
-            <label>
-              Intro Email:
-              <Field
-                name="didSendIntroEmail"
-                render={() => (
-                  <input
-                    type="checkbox"
+            </FormControl>
+
+            <FormControl className={classes.formControl}>
+              <FormControlLabel
+                control={
+                  <Checkbox
                     checked={values.didSendIntroEmail}
-                    onChange={() =>
-                      setFieldValue(
-                        'didSendIntroEmail',
-                        !values.didSendIntroEmail
-                      )
-                    }
+                    onChange={() => (
+                      setFieldValue('didSendIntroEmail', !values.didSendIntroEmail)
+                    )}
+                    name="didSendIntroEmail"
+                    color="primary"
                   />
-                )}
+                }
+                label="Intro Email"
               />
-            </label>
-            <button type="submit">Submit</button>
+            </FormControl>
+
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              startIcon={<Save />}
+            >
+              Save
+            </Button>
           </Form>
         )}
       </Formik>

@@ -1,148 +1,228 @@
 import { Field, Form, Formik } from 'formik';
-import moment from 'moment';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import Datetime from 'react-datetime';
+import LuxonUtils from '@date-io/luxon';
+import { Button, Checkbox, createStyles, FormControl, FormControlLabel, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
+import { TextField } from 'formik-material-ui';
+import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+import { Save, Undo } from '@material-ui/icons';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      '& .MuiTextField-root': {
+        margin: theme.spacing(1),
+        width: '25ch',
+      },
+    },
+    form: {
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: '500px'
+    },
+    formControl: {
+      margin: theme.spacing(1),
+      minWidth: 120,
+    },
+    selectEmpty: {
+      marginTop: theme.spacing(2),
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  }),
+);
 
 export const MeetingsAddEditView = ({
+  isEdit,
   onSubmit,
-  tutorNames,
+  tutors,
   studentNames,
   currencies,
   meeting,
 }): ReactElement => {
+  const classes = useStyles();
+
   return (
-    <div>
-      <h1>Meetings Edit</h1>
-      <Link to="/meetings">
-        <button>Back</button>
+    <div
+      style={{
+        padding: 10,
+      }}
+    >
+      <h1>Meetings {isEdit ? 'Edit' : 'Add'}</h1>
+      <Link to="/meetings" style={{ textDecoration: 'none' }}>
+        <Button
+          variant="contained"
+          color="secondary"
+          className={classes.button}
+          startIcon={<Undo />}
+        >
+          Back
+        </Button>
       </Link>
-      <Formik initialValues={meeting} onSubmit={onSubmit}>
-        {({ values, setFieldValue }) => (
-          <Form
-            style={{
-              display: 'flex',
-              flexDirection: 'column',
-            }}
-          >
-            <label>
-              Tutor:
-              <Field name="tutorId" as="select">
-                <option value="None selected">None selected</option>
-                {tutorNames.map((t) => (
-                  <option value={t._id} key={t._id}>
-                    {t.firstName} {t.lastName}
-                  </option>
-                ))}
-              </Field>
-            </label>
-            <label>
-              Student:
-              <Field name="studentId" as="select">
-                <option value="None selected">None selected</option>
-                {studentNames.map((s) => (
-                  <option value={s._id} key={s._id}>
-                    {s.firstName} {s.lastName}
-                  </option>
-                ))}
-              </Field>
-            </label>
-            <label>
-              Period Start:
-              <Field
+      <MuiPickersUtilsProvider utils={LuxonUtils}>
+        <Formik
+          className={classes.root}
+          initialValues={meeting}
+          onSubmit={onSubmit}>
+          {({ values, setFieldValue }) => (
+            <Form className={classes.form}>
+
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="class-type-label">Tutor</InputLabel>
+                <Select
+                  labelId="class-type-label"
+                  label="tutorId"
+                  name="tutorId"
+                  value={values.tutorId}
+                  onChange={(e) => (
+                    setFieldValue("tutorId", e.target.value)
+                  )}
+                >
+                  {tutors.map((c) => (
+                    <MenuItem value={c._id} key={c._id}>{c.firstName} {c.lastName}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="class-type-label">Student</InputLabel>
+                <Select
+                  labelId="class-type-label"
+                  label="studentId"
+                  name="studentId"
+                  value={values.studentId}
+                  onChange={(e) => (
+                    setFieldValue("studentId", e.target.value)
+                  )}
+                >
+                  {studentNames.map((c) => (
+                    <MenuItem value={c._id} key={c._id}>{c.firstName} {c.lastName}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <DateTimePicker
+                ampm={false}
+                format="dd/MM/yyyy HH:mm"
+                label="Period Start"
+                inputVariant="outlined"
                 name="periodStart"
-                render={() => (
-                  <Datetime
-                    onChange={(e) => setFieldValue('periodStart', e)}
-                    value={values.periodStart}
-                  />
+                value={values.periodStart}
+                onChange={(e) => (
+                  setFieldValue("periodStart", e)
                 )}
+                className={classes.formControl}
               />
-            </label>
-            <label>
-              Period End:
-              <Field
+              <DateTimePicker
+                ampm={false}
+                format="dd/MM/yyyy HH:mm"
+                label="Period End"
+                inputVariant="outlined"
                 name="periodEnd"
-                render={() => (
-                  <Datetime
-                    onChange={(e) => setFieldValue('periodEnd', e)}
-                    value={values.periodEnd}
-                  />
+                value={values.periodEnd}
+                onChange={(e) => (
+                  setFieldValue("periodEnd", e)
                 )}
+                className={classes.formControl}
               />
-            </label>
-            <label>
-              Currency:
-              <Field name="currency" as="select">
-                <option value="None selected">None selected</option>
-                {currencies.map((c) => (
-                  <option value={c} key={c}>
-                    {c}
-                  </option>
-                ))}
-              </Field>
-            </label>
-            <label>
-              Show:
+
+              <FormControl variant="outlined" className={classes.formControl}>
+                <InputLabel id="class-type-label">Currency</InputLabel>
+                <Select
+                  labelId="class-type-label"
+                  label="currency"
+                  name="currency"
+                  value={values.currency}
+                  onChange={(e) => (
+                    setFieldValue("currency", e.target.value)
+                  )}
+                >
+                  {currencies.map((c) => (
+                    <MenuItem value={c} key={c}>{c}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+
+              <FormControl className={classes.formControl}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={values.didShow}
+                      onChange={() => (
+                        setFieldValue('didShow', !values.didShow)
+                      )}
+                      name="didShow"
+                      color="primary"
+                    />
+                  }
+                  label="Show"
+                />
+              </FormControl>
+
+              <FormControl className={classes.formControl}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={values.didFillTutorEvaluationSheet}
+                      onChange={() => (
+                        setFieldValue('didFillTutorEvaluationSheet', !values.didFillTutorEvaluationSheet)
+                      )}
+                      name="didFillTutorEvaluationSheet"
+                      color="primary"
+                    />
+                  }
+                  label="Tutor Evaluation Sheet"
+                />
+              </FormControl>
+
+              <FormControl className={classes.formControl}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={values.didFillStudentEvaluationSheet}
+                      onChange={() => (
+                        setFieldValue('didFillStudentEvaluationSheet', !values.didFillStudentEvaluationSheet)
+                      )}
+                      name="didFillStudentEvaluationSheet"
+                      color="primary"
+                    />
+                  }
+                  label="Student Evaluation Sheet"
+                />
+              </FormControl>
+
               <Field
-                name="didShow"
-                render={() => (
-                  <input
-                    type="checkbox"
-                    checked={values.didShow}
-                    onChange={() => setFieldValue('didShow', !values.didShow)}
-                  />
-                )}
+                component={TextField}
+                name="topicsCovered"
+                label="Topics Covered"
+                multiline
+                variant="outlined"
+                className={classes.formControl}
               />
-            </label>
-            <label>
-              Tutor Evaluation Sheet:
+
               <Field
-                name="didFillTutorEvaluationSheet"
-                render={() => (
-                  <input
-                    type="checkbox"
-                    checked={values.didFillTutorEvaluationSheet}
-                    onChange={() =>
-                      setFieldValue(
-                        'didFillTutorEvaluationSheet',
-                        !values.didFillTutorEvaluationSheet
-                      )
-                    }
-                  />
-                )}
+                component={TextField}
+                name="notes"
+                label="Notes"
+                multiline
+                variant="outlined"
+                className={classes.formControl}
               />
-            </label>
-            <label>
-              Student Evaluation Sheet:
-              <Field
-                name="didFillStudentEvaluationSheet"
-                render={() => (
-                  <input
-                    type="checkbox"
-                    checked={values.didFillStudentEvaluationSheet}
-                    onChange={() =>
-                      setFieldValue(
-                        'didFillStudentEvaluationSheet',
-                        !values.didFillStudentEvaluationSheet
-                      )
-                    }
-                  />
-                )}
-              />
-            </label>
-            <label>
-              Topics Covered
-              <Field name="topicsCovered" as="textarea" />
-            </label>
-            <label>
-              Notes
-              <Field name="notes" as="textarea" />
-            </label>
-            <button type="submit">Submit</button>
-          </Form>
-        )}
-      </Formik>
+
+              <Button
+                type="submit"
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                startIcon={<Save />}
+              >
+                Save
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </MuiPickersUtilsProvider>
     </div>
   );
 };

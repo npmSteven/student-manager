@@ -8,7 +8,7 @@ import { TutorsAddEditView } from "./TutorsAddEditView";
 export const TutorsAddEdit = ({ match }): ReactElement => {
   const { id } = match.params;
   const isEdit: boolean = !!id;
-  
+
   const history = useHistory();
 
   // State
@@ -60,6 +60,7 @@ export const TutorsAddEdit = ({ match }): ReactElement => {
       isLoading={isLoadingState}
       component={
         <TutorsAddEditView
+          isEdit={isEdit}
           onSubmit={onSubmit}
           tutor={tutorState}
         />
