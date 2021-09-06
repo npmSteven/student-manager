@@ -122,7 +122,6 @@ export const ClassesView = ({
           <Button
             variant="contained"
             color="secondary"
-            className={classes.button}
             startIcon={<Add />}
           >
             Add
