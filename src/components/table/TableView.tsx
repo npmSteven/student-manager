@@ -1,22 +1,22 @@
-import { TableFooter } from '@material-ui/core';
+import { TableFooter, TablePagination } from '@material-ui/core';
 import MaUTable from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 
-export const TableView = ({ table, data, nextPage, prevPage, changeLimit, limit }) => {
+export const TableView = ({ table, data, handlePageChange, changeLimit, limit }) => {
   const { getTableProps, headerGroups, rows, prepareRow } = table;
 
   return (
     <div>
-      <select onChange={(event) => changeLimit(event.target.value)} value={limit}>
+{/*       <select onChange={(event) => changeLimit(event.target.value)} value={limit}>
         <option value="5">5</option>
         <option value="10">10</option>
         <option value="25">25</option>
         <option value="50">50</option>
         <option value="100">100</option>
-      </select>
+      </select> */}
       <MaUTable {...getTableProps()}>
         <TableHead>
           {headerGroups.map((headerGroup) => (
@@ -46,10 +46,25 @@ export const TableView = ({ table, data, nextPage, prevPage, changeLimit, limit 
           })}
         </TableBody>
         <TableFooter>
-          <p>Limit: {data?.limit}</p>
+          {/*           <p>Limit: {data?.limit}</p>
           <button disabled={!data?.hasNextPage} onClick={nextPage}>Next</button>
           <p>Current Page: {data?.page}</p>
-          <button disabled={!data?.hasPrevPage} onClick={prevPage}>Prev</button>
+          <button disabled={!data?.hasPrevPage} onClick={prevPage}>Prev</button> */}
+
+          <TableRow>
+            <TablePagination
+              style={{
+                overflow: "visible"
+              }}
+              component="div"
+              count={data.totalDocs}
+              page={data.page - 1}//PAGES DONT START AT 1
+              onPageChange={handlePageChange}
+              rowsPerPage={limit}
+              onRowsPerPageChange={changeLimit}
+              rowsPerPageOptions={[5, 10, 25, 50, 100]}
+            />
+          </TableRow>
         </TableFooter>
       </MaUTable>
     </div>

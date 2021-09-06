@@ -1,3 +1,5 @@
+import { Button } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
@@ -93,7 +95,7 @@ export const ClassesView = ({
                 padding: 5,
                 margin: 0,
                 marginTop: 5,
-                marginBottom: 5, 
+                marginBottom: 5,
                 backgroundColor: 'red',
                 textAlign: 'center',
                 borderRadius: 5,
@@ -112,10 +114,20 @@ export const ClassesView = ({
 
   return (
     <div>
-      <h1>Classes</h1>
-      <Link to="/classes/add">
-        <button>Add</button>
-      </Link>
+      <div style={{
+        paddingLeft: 24
+      }}>
+        <h1>Classes</h1>
+        <Link to="/classes/add" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<Add />}
+          >
+            Add
+          </Button>
+        </Link>
+      </div>
       <Table
         columns={columns}
         data={classes}

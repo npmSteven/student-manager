@@ -14,7 +14,8 @@ export const Table = ({ columns, data, getData, updateData, params, updateParams
     data: data.docs,
   });
 
-  const changeLimit = async limit => {
+  const changeLimit = async event => {
+    const limit = event.target.value;
     setLimit(limit);
     const newParams = { ...params, limit };
     dispatch(updateParams(newParams));
@@ -46,12 +47,19 @@ export const Table = ({ columns, data, getData, updateData, params, updateParams
     }
   }
 
+  const handlePageChange = async (e, page) => {
+    if (data.page > page) {
+      prevPage();
+    } else {
+      nextPage();
+    }
+  }
+
   return (
     <TableView
       table={table}
       data={data}
-      nextPage={nextPage}
-      prevPage={prevPage}
+      handlePageChange={handlePageChange}
       changeLimit={changeLimit}
       limit={limit}
     />

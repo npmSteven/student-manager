@@ -1,3 +1,5 @@
+import { Button } from '@material-ui/core';
+import { Add } from '@material-ui/icons';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Table } from '../../components/table/Table';
@@ -99,10 +101,20 @@ export const TutorsView = ({
   ];
   return (
     <div>
-      <h1>Tutors</h1>
-      <Link to="/tutors/add">
-        <button>Add</button>
-      </Link>
+      <div style={{
+        paddingLeft: 24
+      }}>
+        <h1>Tutors</h1>
+        <Link to="/tutors/add" style={{ textDecoration: 'none' }}>
+          <Button
+            variant="contained"
+            color="secondary"
+            startIcon={<Add />}
+          >
+            Add
+          </Button>
+        </Link>
+      </div>
       <Table
         data={tutors}
         columns={columns}
