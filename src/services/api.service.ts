@@ -1,8 +1,8 @@
 import { toast } from 'react-toastify';
 import { getJwt } from './authentication.service';
+import env from 'react-dotenv';
 
-const apiRoot = 'https://student-manager-api.herokuapp.com/api/v1';
-// const apiRoot = 'http://localhost:8080/api/v1';
+const apiRoot = `${env.API_URL}/api/v1`;
 
 const getAuthHeaders = () => {
   const headers = new Headers();
