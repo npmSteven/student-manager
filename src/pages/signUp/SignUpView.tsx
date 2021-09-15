@@ -32,11 +32,8 @@ export const SignUpView = ({
   firstNameElement,
   middleNameElement,
   lastNameElement,
-  hourlyRateElement,
   emailElement,
   passwordElement,
-  currencyElement,
-  currencies,
 }: any): ReactElement => {
   const classes = useStyles();
 
@@ -68,7 +65,6 @@ export const SignUpView = ({
             <Grid item xs={12} sm={6}>
               <TextField
                 variant="outlined"
-                required
                 fullWidth
                 id="middleName"
                 label="Middle Name"
@@ -88,31 +84,6 @@ export const SignUpView = ({
                 autoComplete="lname"
                 {...lastNameElement.props}
               />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                variant="outlined"
-                required
-                fullWidth
-                type="number"
-                id="hourlyRate"
-                label="Hourly Rate"
-                name="hourlyRate"
-                autoComplete="hourlyRate"
-                {...hourlyRateElement.props}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl required fullWidth>
-                <InputLabel>Currency</InputLabel>
-                <Select native {...currencyElement.props}>
-                  {currencies.map((currency: string) => (
-                    <option key={currency} value={currency}>
-                      {currency}
-                    </option>
-                  ))}
-                </Select>
-              </FormControl>
             </Grid>
             <Grid item xs={12}>
               <TextField

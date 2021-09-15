@@ -66,7 +66,7 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
 
   const addEditClass = async (id: string, values: any) => {
     if (isEdit) return updateClass(id, values);
-    else return addClass(values);
+    return addClass(values);
   }
 
   const onSubmit = async (values) => {
@@ -82,11 +82,13 @@ export const ClassesAddEdit = ({ match }): ReactElement => {
       newValues.periodEnd = newValues.periodEnd.toSeconds();
 
       const newClass = await addEditClass(id, newValues);
-      setIsLoadingState(false);
       if (newClass.success) {
         history.push('/classes');
-        toast.success(isEdit ? 'Updated Class' : 'Added Class');
+        toast.success(`${isEdit ? 'Updated' : 'Added'} Class`);
+        return null;
       }
+      setClassState(values);
+      setIsLoadingState(false);
     } catch (error) {
       console.error('ERROR - ClassesAddEdit.tsx - onSubmit():', error);
       setIsLoadingState(false);
