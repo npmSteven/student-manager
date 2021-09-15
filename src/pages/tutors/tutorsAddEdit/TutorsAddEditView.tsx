@@ -1,8 +1,8 @@
-import { Field, Form, Formik } from 'formik';
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Checkbox, createStyles, FormControl, FormControlLabel, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
+import { Field, Form, Formik } from 'formik';
 import { TextField } from 'formik-material-ui';
+import { Button, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
 import { Save, Undo } from '@material-ui/icons';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -34,7 +34,8 @@ const useStyles = makeStyles((theme: Theme) =>
 export const TutorsAddEditView = ({
   isEdit,
   tutor,
-  onSubmit
+  currencies,
+  onSubmit,
 }): ReactElement => {
   const classes = useStyles();
 
@@ -60,7 +61,7 @@ export const TutorsAddEditView = ({
         initialValues={tutor}
         onSubmit={onSubmit}
       >
-        {() => (
+        {({ values, setFieldValue }) => (
           <Form className={classes.form}>
             <Field
               component={TextField}
@@ -93,7 +94,30 @@ export const TutorsAddEditView = ({
               variant="outlined"
               className={classes.formControl}
             />
-
+            <FormControl variant="outlined" className={classes.formControl} required>
+              <InputLabel id="class-type-label">Currency</InputLabel>
+              <Select
+                labelId="class-type-label"
+                label="currency"
+                name="currency"
+                value={values.currency}
+                onChange={(e) => (
+                  setFieldValue("currency", e.target.value)
+                )}
+              >
+                {currencies.map((c) => (
+                  <MenuItem value={c} key={c}>{c}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Field
+              component={TextField}
+              name="hourlyRate"
+              label="Hourly Rate"
+              required
+              variant="outlined"
+              className={classes.formControl}
+            />
             <Button
               type="submit"
               variant="contained"

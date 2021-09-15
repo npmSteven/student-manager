@@ -1,11 +1,18 @@
 import { ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
-import Datetime from 'react-datetime';
 import LuxonUtils from '@date-io/luxon';
-import { Button, createStyles, FormControl, InputLabel, makeStyles, MenuItem, Select, Theme } from '@material-ui/core';
+import {
+  Button,
+  createStyles,
+  FormControl,
+  InputLabel,
+  makeStyles,
+  MenuItem,
+  Select,
+  Theme,
+} from '@material-ui/core';
 import { TextField } from 'formik-material-ui';
-import React from 'react';
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
 import { Save, Undo } from '@material-ui/icons';
 
@@ -20,7 +27,7 @@ const useStyles = makeStyles((theme: Theme) =>
     form: {
       display: 'flex',
       flexDirection: 'column',
-      maxWidth: '500px'
+      maxWidth: '500px',
     },
     formControl: {
       margin: theme.spacing(1),
@@ -32,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     button: {
       margin: theme.spacing(1),
     },
-  }),
+  })
 );
 
 export const ClassesAddEditView = ({
@@ -65,11 +72,10 @@ export const ClassesAddEditView = ({
         <Formik
           className={classes.root}
           initialValues={foundClass}
-          onSubmit={onSubmit}>
+          onSubmit={onSubmit}
+        >
           {({ values, setFieldValue }) => (
-            <Form className={classes.form}
-            >
-
+            <Form className={classes.form}>
               <Field
                 component={TextField}
                 name="classCode"
@@ -85,9 +91,7 @@ export const ClassesAddEditView = ({
                 inputVariant="outlined"
                 name="periodStart"
                 value={values.periodStart}
-                onChange={(e) => (
-                  setFieldValue("periodStart", e)
-                )}
+                onChange={(e) => setFieldValue('periodStart', e)}
                 className={classes.formControl}
               />
               <DateTimePicker
@@ -97,9 +101,7 @@ export const ClassesAddEditView = ({
                 inputVariant="outlined"
                 name="periodEnd"
                 value={values.periodEnd}
-                onChange={(e) => (
-                  setFieldValue("periodEnd", e)
-                )}
+                onChange={(e) => setFieldValue('periodEnd', e)}
                 className={classes.formControl}
               />
 
@@ -110,12 +112,12 @@ export const ClassesAddEditView = ({
                   label="Location"
                   name="location"
                   value={values.location}
-                  onChange={(e) => (
-                    setFieldValue("location", e.target.value)
-                  )}
+                  onChange={(e) => setFieldValue('location', e.target.value)}
                 >
                   {locations.map((c) => (
-                    <MenuItem value={c} key={c}>{c}</MenuItem>
+                    <MenuItem value={c} key={c}>
+                      {c}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -127,12 +129,12 @@ export const ClassesAddEditView = ({
                   label="Class Type"
                   name="classType"
                   value={values.classType}
-                  onChange={(e) => (
-                    setFieldValue("classType", e.target.value)
-                  )}
+                  onChange={(e) => setFieldValue('classType', e.target.value)}
                 >
                   {classTypes.map((c) => (
-                    <MenuItem value={c} key={c}>{c}</MenuItem>
+                    <MenuItem value={c} key={c}>
+                      {c}
+                    </MenuItem>
                   ))}
                 </Select>
               </FormControl>

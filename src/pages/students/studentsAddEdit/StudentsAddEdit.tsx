@@ -75,7 +75,7 @@ export const StudentsAddEdit = ({ match }): ReactElement => {
 
   const addEditStudent = async (id: any, values: any) => {
     if (isEdit) return updateStudent(id, values);
-    else return addStudent(values);
+    return addStudent(values);
   }
 
   const onSubmit = async (values) => {
@@ -83,11 +83,13 @@ export const StudentsAddEdit = ({ match }): ReactElement => {
       setIsLoadingState(true);
 
       const newStudent = await addEditStudent(id, values);
-      setIsLoadingState(false);
       if (newStudent.success) {
         history.push('/students');
-        toast.success(isEdit ? 'Updated Student' : 'Added Student');
+        toast.success(`${isEdit ? 'Updated' : 'Added'} Student`);
+        return null;
       }
+      setStudentState(values);
+      setIsLoadingState(false);
     } catch (error) {
       console.error('ERROR - StudentsAddEdit.tsx - onSubmit():', error);
       setIsLoadingState(false);

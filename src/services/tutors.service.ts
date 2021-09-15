@@ -55,7 +55,7 @@ export const addTutor = async (tutor) => {
 
 export const updateTutor = async (
   id,
-  { firstName, middleName, lastName, email }
+  { firstName, middleName, lastName, email, currency, hourlyRate }
 ) => {
   try {
     const updatedTutor = {
@@ -63,6 +63,8 @@ export const updateTutor = async (
       middleName,
       lastName,
       email,
+      currency,
+      hourlyRate,
     };
     const response = await putApi(`/tutors/${id}`, updatedTutor);
     return response;
